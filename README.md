@@ -65,7 +65,7 @@ Setelah mengalahkan Demon King, perjalanan berlanjut. Kali ini, kalian diminta u
 
 **Membuat Domain granz.channel.e13.com:**
 
-Ip Heiter: 10.43.1.3 IP Tujuan: 10.43.3.1
+IP Heiter: 10.43.1.3 IP Tujuan: 10.43.3.1
 
 - Edit _file_ konfigurasi `named.conf.local` pada `/etc/bind/named.conf.local`
 ```
@@ -502,7 +502,7 @@ Client mendapatkan DNS dari Heiter dan dapat terhubung dengan internet melalui D
 
 - lakukan pengeditan pada `/etc/bind/named.conf.options`
 
-** Client** (Optional)
+**Client** (Optional)
 
 ```
 echo nameserver 192.168.122.1  > /etc/resolv.conf
@@ -523,7 +523,7 @@ Lama waktu DHCP server meminjamkan alamat IP kepada Client yang melalui Switch3 
 
 <h4>Solusi</h4> <a name="solusi5"></a>
 
- ** Himmel**
+ **Himmel**
 
 - Lakukan konfigurasi pada `/etc/dhcp/dhcpd.conf`
   
@@ -675,7 +675,9 @@ aturlah agar Eisen dapat bekerja dengan maksimal, lalu lakukan testing dengan 10
 <h4>Solusi</h4> <a name="solusi7"></a>
 
 Lawine: 4-2-80	2-1-40 2-1-40 1
+
 Linie:  2-2-50	1-1-25 2-2-50 2
+
 Lugner: 1-1-25	1-1-25 2-2-50 2
 
 urutan: Linie - Lugner - Lawine; Weighted Robin
@@ -812,6 +814,7 @@ y= waktu
 
 III. Analisis
 Beri penjelasan algoritma mana yang paling baik, alasan, dan bagaimana cara kerjanya sehingga maksimal.
+
 Link: https://docs.google.com/document/d/17DwO04MM4hG5LJl9P0EKF8MVtzNXOSv-/edit?usp=sharing&ouid=111413771441952030555&rtpof=true&sd=true 
 
 **Buat htop**
@@ -853,28 +856,38 @@ Selanjutnya coba tambahkan konfigurasi autentikasi di LB dengan dengan kombinasi
 
 <h4>Solusi</h4> <a name="solusi10"></a>
 
-LB: 
+**Load Balancer**
+```
 apt-get update
 apt-get install apache2-utils -y
-
+```
+```
 mkdir /etc/nginx/rahasisakita
+```
+```
 htpasswd -c /etc/nginx/rahasisakita/htpasswd netics
-
 password: ajke13
-
+```
+```
 nano /etc/nginx/sites-available/lb-jarkom
+```
+```
 auth_basic "Restricted Content";
 auth_basic_user_file /etc/nginx/rahasisakita/htpasswd;
 location ~ /\.ht {
             deny all;
         }
-
+```
+```
 service nginx restart
+```
 
 <h4>Testing</h4> <a name="testing10"></a>
 
-revolte
+**Revolte**
+```
 lynx http://www.granz.channel.e13.com/
+```
 
 <img width="470" alt="soal1" src="images/2a.png">
 
@@ -887,8 +900,11 @@ Lalu buat untuk setiap request yang mengandung /its akan di proxy passing menuju
 
 <h4>Solusi</h4> <a name="solusi11"></a>
 
-LB/Eisen:
+  **Load Balancer/Eisen**
+```
 nano /etc/nginx/sites-available/lb-jarkom
+```
+```
     location ~ /its {
         proxy_pass https://www.its.ac.id;
         proxy_set_header Host www.its.ac.id;
@@ -896,12 +912,17 @@ nano /etc/nginx/sites-available/lb-jarkom
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
         proxy_set_header X-Forwarded-Proto $scheme;
     }
-
+```
+```
 service nginx restart
+```
 
 <h4>Testing</h4> <a name="testing11"></a>
 
-Revolte: lynx http://www.granz.channel.e13.com/its
+  **Revolte**
+```
+lynx http://www.granz.channel.e13.com/its
+```
 
 <img width="470" alt="soal1" src="images/2a.png">
 
@@ -910,22 +931,29 @@ Selanjutnya LB ini hanya boleh diakses oleh client dengan IP [Prefix IP].3.69, [
 
 <h4>Solusi</h4> <a name="solusi12"></a>
 
-LB:
+ **Load Balancer**
+```
 nano /etc/nginx/sites-available/lb-jarkom
+```
+```
 location / {
-   ……………
+
     allow 10.43.3.69;
     allow 10.43.3.70;
     allow 10.43.4.167;
     allow 10.43.4.168;
     deny all;
 }
+```
+```
 service nginx restart
+```
 
 <h4>Testing</h4> <a name="testing12"></a>
 
-contoh kalo ketolak:
+```
 lynx http://granz.channel.e13.com
+```
 
 <img width="470" alt="soal1" src="images/2a.png">
 
@@ -936,22 +964,29 @@ Semua data yang diperlukan, diatur pada Denken dan harus dapat diakses oleh Frie
 
 <h4>Solusi</h4> <a name="solusi13"></a>
 
-Denken (Database Server)
+  **Denken (Database Server)**
 
+```
 nano /etc/mysql/my.cnf
-# Options affecting the MySQL server (mysqld)
+```
+```
+Options affecting the MySQL server (mysqld)
 [mysqld]
 skip-networking=0
 skip-bind-address
+```
 
+```
 nano /etc/mysql/mariadb.conf.d/50-server.cnf
-bind-address            = 0.0.0.0
-
+```
+```
+bind-address = 0.0.0.0
 service mysql restart
-
 mysql -u root -p
+```
 
-MASUKIN SATU2 INI
+- MASUKIN SATU2 INI
+```
 Enter password: 
 
 CREATE USER 'e13'@'%' IDENTIFIED BY 'e13aja';
@@ -960,11 +995,14 @@ CREATE DATABASE dbe13;
 GRANT ALL PRIVILEGES ON *.* TO 'e13'@'%';
 GRANT ALL PRIVILEGES ON *.* TO 'e13'@'localhost';
 FLUSH PRIVILEGES;
+```
 
 <h4>Testing</h4> <a name="testing13"></a>
 
-Fern: 
+  **Fern**
+```
 mariadb --host=10.43.2.2 --port=3306 --user=e13 --password=e13aja dbe13 -e "SHOW DATABASES;"
+```
 
 <img width="470" alt="soal1" src="images/2a.png">
 
@@ -975,20 +1013,32 @@ Riegel Channel memiliki beberapa endpoint yang harus ditesting sebanyak 100 requ
 
 <h4>Solusi</h4> <a name="solusi14"></a>
 
-3F:
+**3F**
+```
 wget https://getcomposer.org/download/2.0.13/composer.phar
+```
+```
 chmod +x composer.phar
+```
+```
 mv composer.phar /usr/local/bin/composer
-
+```
+```
 apt-get install git -y
+```
+```
 cd /var/www && git clone https://github.com/martuafernando/laravel-praktikum-jarkom
+```
+```
 cd /var/www/laravel-praktikum-jarkom && composer update
-
+```
+```
 cd /var/www/laravel-praktikum-jarkom && cp .env.example .env
-
+```
+```
 nano /var/www/laravel-praktikum-jarkom/.env
-
-
+```
+```
 cd /var/www/laravel-praktikum-jarkom && php artisan key:generate
 cd /var/www/laravel-praktikum-jarkom && php artisan config:cache
 cd /var/www/laravel-praktikum-jarkom && php artisan migrate
@@ -996,10 +1046,15 @@ cd /var/www/laravel-praktikum-jarkom && php artisan db:seed
 cd /var/www/laravel-praktikum-jarkom && php artisan storage:link
 cd /var/www/laravel-praktikum-jarkom && php artisan jwt:secret
 cd /var/www/laravel-praktikum-jarkom && php artisan config:clear
+```
+```
 chown -R www-data.www-data /var/www/laravel-praktikum-jarkom/storage
-
-
+```
+```
 nano /etc/nginx/sites-available/jarkom
+```
+
+```
 server {
     listen 9001;
 
@@ -1025,13 +1080,18 @@ server {
     error_log /var/log/nginx/implementasi_error.log;
     access_log /var/log/nginx/implementasi_access.log;
 }
-
+```
+```
 unlink /etc/nginx/sites-enabled/default
+```
+```
 ln -s /etc/nginx/sites-available/jarkom /etc/nginx/sites-enabled
+```
 
 <h4>Testing</h4> <a name="testing14"></a>
-
+```
 lynx localhost:9001
+```
 
 nb
 ===
@@ -1043,63 +1103,78 @@ nb
 <img width="470" alt="soal1" src="images/2a.png">
 
 <h3>Soal 15,16,17</h3>
-POST /auth/register (15)
+
+<h4>Solusi</h4> <a name="solusi15,16,17"></a>
+
+  **POST /auth/register (15)**
 
 REVOLTE 
-a. POST /auth/register
+```
 echo '
 {
   "username": "e13",
   "password": "e13aja"
 }' > register.json
-
-ab -n 100 -c 10 -p register.json -T application/json http://10.43.4.4:9001/api/auth/register
+```
 
 <img width="470" alt="soal1" src="images/2a.png">
 
-POST /auth/login (16)
+  **POST /auth/login (16)**
 
+```
 echo '
 {
   "username": "e13",
   "password": "e13aja"
 }' > login.json
-
+```
+```
 ab -n 100 -c 10 -p login.json -T application/json http://10.43.4.4:9001/api/auth/login
-
+```
 
 <img width="470" alt="soal1" src="images/2a.png">
 
 
-GET /me (17)
+  **GET /me (17)**
 
+```
 curl -X POST -H "Content-Type: application/json" -d @login.json http://10.43.4.4:9001/api/auth/login > login_output.txt
-
+```
+```
 echo 'nameserver 192.168.122.1' > /etc/resolv.conf
 apt-get update
 apt-get install jq -y
-
+```
+```
 token=$(cat login_output.txt | jq -r '.token')
+```
 
+<h4>Testing</h4> <a name="testing16,17,18"></a>
+
+```
+ab -n 100 -c 10 -p register.json -T application/json http://10.43.4.4:9001/api/auth/register
+```
+
+<img width="470" alt="soal1" src="images/2a.png">
+
+```
 ab -n 100 -c 10 -H "Authorization: Bearer $token" http://10.43.4.4:9001/api/me
+```
 
 <img width="470" alt="soal1" src="images/2a.png">
 
 
-<h4>Solusi</h4> <a name="solusi15,16,17"></a>
-<h4>Testing</h4> <a name="testing16,17,18"></a>
 
 <h3>Soal 18</h3>
 Untuk memastikan ketiganya bekerja sama secara adil untuk mengatur Riegel Channel maka implementasikan Proxy Bind pada Eisen untuk mengaitkan IP dari Frieren, Flamme, dan Fern.
 
 <h4>Solusi</h4> <a name="solusi18"></a>
 
-
-
-==========NOMER 18===========
-EISEN
-/etc/nginx/sites-available/laravel-worker
-
+  **EISEN**
+```
+nano /etc/nginx/sites-available/laravel-worker
+```
+```
 upstream worker {
     server 10.33.4.4:9001;
     server 10.33.4.5:9002;
@@ -1114,16 +1189,19 @@ server {
         proxy_pass http://worker;
     }
 }
-
+```
+```
 ln -s /etc/nginx/sites-available/laravel-worker /etc/nginx/sites-enabled/laravel-worker
-
+```
+```
 service nginx restart
-
+```
 <h4>Testing</h4> <a name="testing18"></a>
 
-Revolte
-
+  **Revolte**
+```
 ab -n 100 -c 10 -p login.json -T application/json http://www.rigel.canyon.e13.com/api/auth/login
+```
 
 <img width="470" alt="soal1" src="images/2a.png">
 
@@ -1137,12 +1215,14 @@ sebanyak tiga percobaan dan lakukan testing sebanyak 100 request dengan 10 reque
 
 <h4>Solusi</h4> <a name="solusi19"></a>
 
-==========NOMER 19===========
 1: 5-2-1-3
+
 2: 25-5-3-10 
+
 4: 75-10-5-20
 
-3F
+  **3F**
+```
 echo '[www]
 user = www-data
 group = www-data
@@ -1159,16 +1239,20 @@ pm.max_children = 5
 pm.start_servers = 2
 pm.min_spare_servers = 1
 pm.max_spare_servers = 3' > /etc/php/8.0/fpm/pool.d/www.conf
+```
 
+```
 service php8.0-fpm restart
-
-Revolte: ab -n 100 -c 10 http://rigel.canyon.e13.com/
-
+```
 
 <h4>Testing</h4> <a name="testing19"></a>
 
-Skenario 1:
+ **Revolte**
+ ```
+ab -n 100 -c 10 http://rigel.canyon.e13.com/
+```
 
+Skenario 1:
 
 <img width="470" alt="soal1" src="images/2a.png">
 
@@ -1185,17 +1269,23 @@ Nampaknya hanya menggunakan PHP-FPM tidak cukup untuk meningkatkan performa dari
 
 <h4>Solusi</h4> <a name="solusi20"></a>
 
-Eisen
+  **Eisen**
+```
 nano /etc/nginx/sites-available/laravel-worker
+```
+```
  least_conn;
-
+```
+```
 service nginx restart
-
+```
 
 <h4>Testing</h4> <a name="testing20"></a>
 
-Revolte: ab -n 100 -c 10 http://rigel.canyon.e13.com/
-
+**Revolte**
+```
+ab -n 100 -c 10 http://rigel.canyon.e13.com/
+```
 
 <img width="470" alt="soal1" src="images/2a.png">
 
