@@ -10,8 +10,8 @@
 | Soal | Solusi | Testing |
 |----------|----------|----------|
 | [Soal 1](#soal-1) | [Solusi](#solusi1) | [Testing](#testing1) |
-| [Soal 2](#soal-2) | [Solusi](#solusi2) | [Testing](#testing2) |
-| [Soal 3](#soal-3) | [Solusi](#solusi3) | [Testing](#testing3) |
+| [Soal 2](#soal-2&3) | [Solusi](#solusi2&3) | [Testing](#testing2&3) |
+| [Soal 3](#soal-2&3) | [Solusi](#solusi2&3) | [Testing](#testing2&3) |
 | [Soal 4](#soal-4) | [Solusi](#solusi4) | [Testing](#testing4) |
 | [Soal 5](#soal-5) | [Solusi](#solusi5) | [Testing](#testing5) |
 | [Soal 6](#soal-6) | [Solusi](#solusi6) | [Testing](#testing6) |
@@ -58,38 +58,425 @@ dengan ketentuan sebagai berikut:
 | Stark | Client |  danielcristh0/debian-buster:1.1 | Dynamic |
 
 
+<h3>Soal 0</h3>
 Setelah mengalahkan Demon King, perjalanan berlanjut. Kali ini, kalian diminta untuk melakukan register domain berupa riegel.canyon.yyy.com untuk worker Laravel dan granz.channel.yyy.com untuk worker PHP (0) mengarah pada worker yang memiliki IP [prefix IP].x.1.
+
+**Heiter**
+domain: nomer0.sh
+
+Membuat Domain granz.channel.e13.com:
+
+Ip Heiter: 10.43.1.3 IP Tujuan: 10.43.3.1
+
+- Edit _file_ konfigurasi `named.conf.local` pada `/etc/bind/named.conf.local`
+```
+zone "granz.channel.e13.com" {
+	type master;
+	file "/etc/bind/jarkom/granz.channel.e13.com";
+};
+```
+
+mkdir /etc/bind/jarkom
+
+cp /etc/bind/db.local /etc/bind/jarkom/granz.channel.e13.com
+
+nano /etc/bind/jarkom/granz.channel.e13.com
+
+service bind9 restart
+
+**REVERSE**
+
+nano /etc/bind/named.conf.local
+```
+zone "3.43.10.in-addr.arpa" {
+    type master;
+    file "/etc/bind/jarkom/3.43.10.in-addr.arpa";
+};
+```
+
+cp /etc/bind/db.local /etc/bind/jarkom/3.43.10.in-addr.arpa
+
+nano /etc/bind/jarkom/3.43.10.in-addr.arpa
+```
+```
+
+service bind9 restart
+
+Membuat Domain rigel.canyon.e13.com:
+
+IP Heiter: 10.43.1.3; IP Tujuan: 10.43.4.1
+
+nano /etc/bind/named.conf.local
+```
+zone "rigel.canyon.e13.com" {
+	type master;
+	file "/etc/bind/jarkom/rigel.canyon.e13.com";
+};
+```
+
+mkdir /etc/bind/jarkom
+
+cp /etc/bind/db.local /etc/bind/jarkom/rigel.canyon.e13.com
+
+nano /etc/bind/jarkom/rigel.canyon.e13.com
+```
+```
+
+service bind9 restart
+
+**REVERSE**
+```
+6 10.43.3.32;
+        range 10.43.3.64 10.43.3.80;
+        option routers 10.43.3.1;
+        option broadcast-address 10.43.3.255;
+        option domain-name-servers 10.43.1.3; # DNS Server
+        default-lease-time 600;
+        max-lease-time 7200;
+}
+
+subnet 10.43.4.0 netmask 255.255.255.0 {
+        range 10.43.4.12 10.43.4.20;
+        range 10.43.4.160 10.43.4.168;
+        option routers 10.43.4.1;
+        option broadcast-address 10.43.4.255;
+        option domain-name-servers 10.43.1.3;
+        default-lease-time 600;nano /etc/bind/named.conf.local
+
+zone "4.43.10.in-addr.arpa" {
+    type master;
+    file "/etc/bind/jarkom/4.43.10.in-addr.arpa";
+};
+```
+
+cp /etc/bind/db.local /etc/bind/jarkom/4.43.10.in-addr.arpa
+
+nano /etc/bind/jarkom/4.43.10.in-addr.arpa
+```
+```
+
+service bind9 restart
+
 
 <h3>Soal 1</h3>
 Lakukan konfigurasi sesuai dengan peta yang sudah diberikan!
 <h4>Solusi</h4> <a name="solusi1"></a>
+
+Konfigurasi Network: 
+
+**Aura (Router + DHCP Relay)**
+```
+auto eth0
+iface eth0 inet dhcp
+
+auto eth1
+iface eth1 inet static
+	address 10.43.1.1
+	netmask 255.255.255.0
+
+auto eth2
+iface eth2 inet static
+	address 10.43.2.1
+	netmask 255.255.255.0
+
+auto eth3
+iface eth3 inet static
+	address 10.43.3.1
+	netmask 255.255.255.0
+
+auto eth4
+iface eth4 inet static
+	address 10.43.4.1
+	netmask 255.255.255.0
+```
+
+**Himmel (DHCP Server)**
+```
+auto eth0
+iface eth0 inet static
+	address 10.43.1.2
+	netmask 255.255.255.0
+	gateway 10.43.1.1
+```
+
+**Heiter (DNS Server)**
+```
+auto eth0
+iface eth0 inet static
+	address 10.43.1.3
+	netmask 255.255.255.0
+	gateway 10.43.1.1
+```
+
+**Denken (Database Server)**
+```
+auto eth0
+iface eth0 inet static
+	address 10.43.2.2
+	netmask 255.255.255.0
+	gateway 10.43.2.1
+```
+
+**Eisen (Load Balancer)**
+```
+auto eth0
+iface eth0 inet static
+	address 10.43.2.3
+	netmask 255.255.255.0
+	gateway 10.43.2.1
+```
+
+**Revolte (Client)**
+```
+auto eth0
+iface eth0 inet dhcp
+```
+
+**Ritcher (Client)**
+```
+auto eth0
+iface eth0 inet dhcp
+```
+
+**Lawine (PHP Worker) GANTI FIXED ADDRESS**
+```
+auto eth0
+iface eth0 inet static
+	address 10.43.3.4
+	netmask 255.255.255.0
+	gateway 10.43.3.1
+```
+
+**Linie (PHP Worker) GANTI FIXED ADDRESS**
+```
+auto eth0
+iface eth0 inet static
+	address 10.43.3.5
+	netmask 255.255.255.0
+	gateway 10.43.3.1
+```
+
+**Lugner (PHP Worker) GANTI FIXED ADDRESS**
+```
+auto eth0
+iface eth0 inet static
+	address 10.43.3.6
+	netmask 255.255.255.0
+	gateway 10.43.3.1
+```
+
+**Sein (Client)**
+```
+auto eth0
+iface eth0 inet dhcp
+```
+
+**Stark (Client)**
+```
+auto eth0
+iface eth0 inet dhcp
+```
+
+**Frieren (Laravel Worker) GANTI FIXED ADDRESS**
+```
+auto eth0
+iface eth0 inet static
+	address 10.43.4.4
+	netmask 255.255.255.0
+	gateway 10.43.4.1
+```
+
+**Flamme (Laravel Worker) GANTI FIXED ADDRESS**
+```
+auto eth0
+iface eth0 inet static
+	address 10.43.4.5
+	netmask 255.255.255.0
+	gateway 10.43.4.1
+```
+
+**Fern (Laravel Worker) GANTI FIXED ADDRESS**
+```
+auto eth0
+iface eth0 inet static
+	address 10.43.4.6
+	netmask 255.255.255.0
+	gateway 10.43.4.1
+```
+
+Initial Script (~/.bashrc)
+
+**Aura (Rooter + DHCP Relay)**
+```
+iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE -s 10.43.0.0/16
+apt-get update
+apt-get install isc-dhcp-relay -y
+service isc-dhcp-relay start
+```
+
+**Heiter (DNS Server)**
+```
+echo nameserver 192.168.122.1 > /etc/resolv.conf
+apt-get update
+apt-get install bind9 -y
+```
+
+**Himmel (DHCP Server)**
+```
+echo nameserver 192.168.122.1 > /etc/resolv.conf
+apt-get update
+apt-get install isc-dhcp-server -y
+```
+
+**Eisen (Load Balancer)**
+```
+echo 'nameserver 192.168.122.1' > /etc/resolv.conf
+apt-get update
+apt-get install dnsutils -y
+apt-get install lynx -y
+apt-get install bind9 nginx -y
+service nginx start
+```
+
+**PHP Worker (Lawine, Linie, Lugner)**
+```
+echo ‘nameserver 192.168.122.1’ > /etc/resolv.conf
+apt-get update
+apt-get install nginx -y
+apt-get install apache2 -y
+apt-get install php -y
+service apache2 start
+apt-get install wget -y
+apt-get install unzip -y
+```
+
+**Denken (Database Server)**
+```
+echo 'nameserver 192.168.122.1' > /etc/resolv.conf
+apt-get update
+apt-get install mariadb-server -y
+service mysql start
+```
+
+**Client**
+```
+echo ‘nameserver 192.168.122.1
+search example.org
+nameserver 10.43.1.3’ >> /etc/resolv.conf
+apt-get update
+apt-get install dnsutils -y
+apt-get install lynx -y
+```
+
 <h4>Testing</h4> <a name="testing1"></a>
 
 Kemudian, karena masih banyak spell yang harus dikumpulkan, bantulah para petualang untuk memenuhi kriteria berikut.:
 
-<h3>Soal 2</h3>
+<h3>Soal 2&3</h3>
 Semua CLIENT harus menggunakan konfigurasi dari DHCP Server.
-Client yang melalui Switch3 mendapatkan range IP dari [prefix IP].3.16 - [prefix IP].3.32 dan [prefix IP].3.64 - [prefix IP].3.80 
 
-<h4>Solusi</h4> <a name="solusi2"></a>
-<h4>Testing</h4> <a name="testing2"></a>
+- Client yang melalui Switch3 mendapatkan range IP dari [prefix IP].3.16 - [prefix IP].3.32 dan [prefix IP].3.64 - [prefix IP].3.80
+  
+- Client yang melalui Switch4 mendapatkan range IP dari [prefix IP].4.12 - [prefix IP].4.20 dan [prefix IP].4.160 - [prefix IP].4.168
 
-<h3>Soal 3</h3>
-Client yang melalui Switch4 mendapatkan range IP dari [prefix IP].4.12 - [prefix IP].4.20 dan [prefix IP].4.160 - [prefix IP].4.168
+  <h4>Solusi</h4> <a name="solusi2&3"></a>
 
-<h4>Solusi</h4> <a name="solusi3"></a>
-<h4>Testing</h4> <a name="testing3"></a>
+  Konfigurasi DHCP Server (Himmel) + sekalian fixed address
+>> edit file /etc/default/isc-dhcp-server
+INTERFACESv4 = "eth3 eth4" >> error terus kuganti eth0 bisa
+
+step:
+1. nano /etc/dhcp/dhcpd.conf
+
+subnet 10.43.1.0 netmask 255.255.255.0{
+#    option routers 10.43.1.1;
+}
+
+subnet 10.43.2.0 netmask 255.255.255.0{
+#    option routers 10.43.2.1;
+}
+
+subnet 10.43.3.0 netmask 255.255.255.0 {
+        range 10.43.3.1
+        max-lease-time 7200;
+}
+host Lawine {
+	hardware ethernet c2:87:79:57:b1:05;
+	fixed-address 10.43.3.4;
+}
+host Linie {
+	hardware ethernet 3e:0e:25:e2:63:45;
+	fixed-address 10.43.3.5;
+}
+host Lugner {
+	hardware ethernet b6:2f:0e:2d:38:5a;
+	fixed-address 10.43.3.6;
+}
+
+2. service isc-dhcp-server restart
+3. service isc-dhcp-server status
+
+<h4>Testing</h4> <a name="testing2&3"></a>
+
+Revolte
+<img width="470" alt="soal1" src="images/2.png">
+
+Ritcher
+<img width="470" alt="soal1" src="images/2.png">
+
+Sein
+<img width="470" alt="soal1" src="images/2.png">
+
+Stark
+<img width="470" alt="soal1" src="images/2.png">
+
 
 <h3>Soal 4</h3>
 Client mendapatkan DNS dari Heiter dan dapat terhubung dengan internet melalui DNS tersebut
 
 <h4>Solusi</h4> <a name="solusi4"></a>
+>>> Heiter
+edit /etc/bind/named.conf.options
+service bind9 restart
+di client:
+—- kalo perlu edit /etc/resolv.conf terus nameserver 192.168.122.1
+
 <h4>Testing</h4> <a name="testing4"></a>
+>> Hasil testing di Client (Revolte): 
+
+<img width="470" alt="soal1" src="images/2.png">
 
 <h3>Soal 5</h3>
 Lama waktu DHCP server meminjamkan alamat IP kepada Client yang melalui Switch3 selama 3 menit sedangkan pada client yang melalui Switch4 selama 12 menit. Dengan waktu maksimal dialokasikan untuk peminjaman alamat IP selama 96 menit 
 
 <h4>Solusi</h4> <a name="solusi5"></a>
+
+>>> Himmel
+edit /etc/dhcp/dhcpd.conf
+edit default-lease-time dan max-lease-time
+subnet 10.43.3.0 netmask 255.255.255.0 {
+        range 10.43.3.16 10.43.3.32;
+        range 10.43.3.64 10.43.3.80;
+        option routers 10.43.3.1;
+        option broadcast-address 10.43.3.255;
+        option domain-name-servers 10.43.1.3; # DNS Server
+        default-lease-time 180;
+        max-lease-time 5760;
+}
+
+subnet 10.43.4.0 netmask 255.255.255.0 {
+        range 10.43.4.12 10.43.4.20;
+        range 10.43.4.160 10.43.4.168;
+        option routers 10.43.4.1;
+        option broadcast-address 10.43.4.255;
+        option domain-name-servers 10.43.1.3;
+        default-lease-time 720;
+        max-lease-time 5760;
+}
+
+service isc-dhcp-server restart
+service isc-dhcp-server status
+
 <h4>Testing</h4> <a name="testing5"></a>
 
 Berjalannya waktu, petualang diminta untuk melakukan deployment.
@@ -98,7 +485,65 @@ Berjalannya waktu, petualang diminta untuk melakukan deployment.
 Pada masing-masing worker PHP, lakukan konfigurasi virtual host untuk website berikut dengan menggunakan php 7.3
 
 <h4>Solusi</h4> <a name="solusi6"></a>
+
+3L: nomer6.sh
+testing: revolte/ritcher lynx http://10.43.3.4/5/6
+
+apt-get update
+apt-get install nginx -y
+apt-get install apache2 -y
+apt-get install php -y
+# apt-get install libapache2-mod-php7.0 -y
+service apache2 start
+apt-get install wget -y
+apt-get install unzip -y
+
+mkdir /var/www/lawine
+echo nameserver 192.168.122.1 > /etc/resolv.conf
+wget --no-check-certificate 'https://drive.google.com/uc?export=download&id=1ViSkRq7SmwZgdK64eRbr5Fm1EGCTPrU1' -O /var/www/lawine/downloaded_file.zip
+unzip /var/www/lawine/downloaded_file.zip -d /var/www/lawine/
+
+mv /var/www/lawine/modul-3 /var/www/lawine/public
+
+cp /etc/apache2/sites-available/000-default.conf /etc/apache2/sites-available/granz.channel.e13.com.conf
+
+rm /etc/apache2/sites-available/000-default.conf
+
+nano /etc/apache2/sites-available/granz.channel.e13.com.conf
+
+<VirtualHost *:80>
+    #ServerAdmin webmaster@lawine.canyon.e13.com
+    ServerAdmin webmaster@localhost
+    ServerName granz.channel.e13.com
+    DocumentRoot /var/www/lawine/public
+
+    <Directory /var/www/lawine/public>
+        Options Indexes FollowSymLinks
+        AllowOverride All
+        Require all granted
+    </Directory>
+
+    ErrorLog ${APACHE_LOG_DIR}/error.log
+    CustomLog ${APACHE_LOG_DIR}/access.log combined
+
+</VirtualHost>
+
+a2ensite granz.channel.e13.com.conf
+
+service apache2 restart
+
+
+==== revolte & ritcher: nomer6.sh
+echo 'nameserver 192.168.122.1' > /etc/resolv.conf
+apt-get update
+# apt-get install dnsutils -y
+apt-get install lynx -y
+
 <h4>Testing</h4> <a name="testing6"></a>
+
+lynx http://10.43.3.4
+
+<img width="470" alt="soal1" src="images/2a.png">
 
 <h3>Soal 7</h3>
 Kepala suku dari Bredt Region memberikan resource server sebagai berikut:
@@ -110,7 +555,97 @@ Kepala suku dari Bredt Region memberikan resource server sebagai berikut:
 aturlah agar Eisen dapat bekerja dengan maksimal, lalu lakukan testing dengan 1000 request dan 100 request/second.
 
 <h4>Solusi</h4> <a name="solusi7"></a>
+
+Lawine: 4-2-80	2-1-40 2-1-40 1
+Linie:  2-2-50	1-1-25 2-2-50 2
+Lugner: 1-1-25	1-1-25 2-2-50 2
+
+urutan: Linie - Lugner - Lawine; Weighted Robin
+
+3L: nomer7.sh
+LB: nomer7.sh
+
+3L--------------
+echo nameserver 192.168.122.1 > /etc/resolv.conf
+apt-get update
+apt-get install nginx php php-fpm -y
+
+service php7.3-fpm start
+nano /etc/nginx/sites-available/jarkom
+
+server {
+
+listen 8001;
+
+root /var/www/lawine/public;
+
+index index.php index.html index.htm;
+server_name _;
+
+location / {
+        try_files $uri $uri/ /index.php?$query_string;
+}
+
+# pass PHP scripts to FastCGI server
+location ~ \.php$ {
+        include snippets/fastcgi-php.conf;
+        fastcgi_pass unix:/var/run/php/php7.3-fpm.sock;
+}
+
+location ~ /\.ht {
+        deny all;
+}
+
+error_log /var/log/nginx/jarkom_error.log;
+access_log /var/log/nginx/jarkom_access.log;
+}
+
+unlink /etc/nginx/sites-enabled/default
+ln -s /etc/nginx/sites-available/jarkom /etc/nginx/sites-enabled
+service nginx restart
+nginx -t
+
+LB---------------
+nano /etc/nginx/sites-available/lb-jarkom
+#Default menggunakan Round Robin
+upstream backend  {
+server 10.43.3.4:8001 weight=1; #IP Lawine
+server 10.43.3.5:8002 weight=2; #IP Linie
+server 10.43.3.6:8003 weight=2; #IP Lugner
+}
+
+server {
+listen 80;
+server_name granz.channel.e13.com;
+
+        location / {
+                proxy_pass http://backend;
+                proxy_set_header    X-Real-IP $remote_addr;
+                proxy_set_header    X-Forwarded-For $proxy_add_x_forwarded_for;
+                proxy_set_header    Host $http_host;
+        }
+
+error_log /var/log/nginx/lb_error.log;
+access_log /var/log/nginx/lb_access.log;
+
+}
+
+unlink /etc/nginx/sites-enabled/default
+ln -s /etc/nginx/sites-available/lb-jarkom /etc/nginx/sites-enabled
+service nginx restart
+nginx -t
+
+==revolte/ritcher
+lynx http://10.43.3.4:8001
+echo 'nameserver 192.168.122.1' > /etc/resolv.conf
+apt-get update
+
+apt-get install apache2-utils -y
+
+ab -n 1000 -c 100 http://10.43.3.4/
+
 <h4>Testing</h4> <a name="testing7"></a>
+
 
 <h3>Soal 8</h3>
 Karena diminta untuk menuliskan grimoire, buatlah analisis hasil testing dengan 200 request dan 10 request/second masing-masing algoritma Load Balancer dengan ketentuan sebagai berikut:
@@ -121,31 +656,135 @@ Karena diminta untuk menuliskan grimoire, buatlah analisis hasil testing dengan 
 - Analisis
 
 <h4>Solusi</h4> <a name="solusi8"></a>
+
+I. Hasil Testing
+a. Algo A
+Hasil testing AB dengan lampiran SS htop
+...
+d. Algo D 
+
+II. Grafik
+Request per second untuk tiap Algo
+x= nama algo
+y= waktu
+
+III. Analisis
+Beri penjelasan algoritma mana yang paling baik, alasan, dan bagaimana cara kerjanya sehingga maksimal.
+Link: https://docs.google.com/document/d/17DwO04MM4hG5LJl9P0EKF8MVtzNXOSv-/edit?usp=sharing&ouid=111413771441952030555&rtpof=true&sd=true 
+\\\\\\\\\\\
+---buat htop
+LB dan 3L: 
+echo 'nameserver 192.168.122.1' > /etc/resolv.conf
+apt-get update
+apt-get install htop -y
+
+---roundrobin
+eisen: apus weight nya
+revolte: ab -n 200 -c 10 http://granz.channel.e13.com/
+htop
+
+---least connection
+eisen:nomer8a.sh
+revolte: ab -n 200 -c 10 http://granz.channel.e13.com/
+htop
+
+---ip hash
+
+---hash gen
+
 <h4>Testing</h4> <a name="testing8"></a>
 
 <h3>Soal 9</h3>
 Dengan menggunakan algoritma Round Robin, lakukan testing dengan menggunakan 3 worker, 2 worker, dan 1 worker sebanyak 100 request dengan 10 request/second, kemudian tambahkan grafiknya pada grimoire.
 
 <h4>Solusi</h4> <a name="solusi9"></a>
+
+LB 3 worker, 2 worker, 1 worker
+LB: nomer9.sh
+Revolte: ab -n 100 -c 10 http://granz.channel.e13.com/
+
 <h4>Testing</h4> <a name="testing9"></a>
 
 <h3>Soal 10</h3>
 Selanjutnya coba tambahkan konfigurasi autentikasi di LB dengan dengan kombinasi username: “netics” dan password: “ajkyyy”, dengan yyy merupakan kode kelompok. Terakhir simpan file “htpasswd” nya di /etc/nginx/rahasisakita/
 
 <h4>Solusi</h4> <a name="solusi10"></a>
+
+LB: 
+apt-get update
+apt-get install apache2-utils -y
+
+mkdir /etc/nginx/rahasisakita
+htpasswd -c /etc/nginx/rahasisakita/htpasswd netics
+
+password: ajke13
+
+nano /etc/nginx/sites-available/lb-jarkom
+auth_basic "Restricted Content";
+auth_basic_user_file /etc/nginx/rahasisakita/htpasswd;
+location ~ /\.ht {
+            deny all;
+        }
+
+service nginx restart
+
 <h4>Testing</h4> <a name="testing10"></a>
+
+revolte
+lynx http://www.granz.channel.e13.com/
+
+<img width="470" alt="soal1" src="images/2a.png">
+
+<img width="470" alt="soal1" src="images/2a.png">
+
+<img width="470" alt="soal1" src="images/2a.png">
 
 <h3>Soal 11</h3>
 Lalu buat untuk setiap request yang mengandung /its akan di proxy passing menuju halaman https://www.its.ac.id. hint: (proxy_pass)
 
 <h4>Solusi</h4> <a name="solusi11"></a>
+
+LB/Eisen:
+nano /etc/nginx/sites-available/lb-jarkom
+    location ~ /its {
+        proxy_pass https://www.its.ac.id;
+        proxy_set_header Host www.its.ac.id;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+
+service nginx restart
+
 <h4>Testing</h4> <a name="testing11"></a>
+
+Revolte: lynx http://www.granz.channel.e13.com/its
+
+<img width="470" alt="soal1" src="images/2a.png">
 
 <h3>Soal 12</h3>
 Selanjutnya LB ini hanya boleh diakses oleh client dengan IP [Prefix IP].3.69, [Prefix IP].3.70, [Prefix IP].4.167, dan [Prefix IP].4.168. hint: (fixed in dulu clinetnya)
 
 <h4>Solusi</h4> <a name="solusi12"></a>
+
+LB:
+nano /etc/nginx/sites-available/lb-jarkom
+location / {
+   ……………
+    allow 10.43.3.69;
+    allow 10.43.3.70;
+    allow 10.43.4.167;
+    allow 10.43.4.168;
+    deny all;
+}
+service nginx restart
+
 <h4>Testing</h4> <a name="testing12"></a>
+
+contoh kalo ketolak:
+lynx http://granz.channel.e13.com
+
+<img width="470" alt="soal1" src="images/2a.png">
 
 Karena para petualang kehabisan uang, mereka kembali bekerja untuk mengatur riegel.canyon.yyy.com.
 
@@ -153,35 +792,197 @@ Karena para petualang kehabisan uang, mereka kembali bekerja untuk mengatur rieg
 Semua data yang diperlukan, diatur pada Denken dan harus dapat diakses oleh Frieren, Flamme, dan Fern!
 
 <h4>Solusi</h4> <a name="solusi13"></a>
+
+Denken (Database Server)
+
+nano /etc/mysql/my.cnf
+# Options affecting the MySQL server (mysqld)
+[mysqld]
+skip-networking=0
+skip-bind-address
+
+nano /etc/mysql/mariadb.conf.d/50-server.cnf
+bind-address            = 0.0.0.0
+
+service mysql restart
+
+mysql -u root -p
+
+MASUKIN SATU2 INI
+Enter password: 
+
+CREATE USER 'e13'@'%' IDENTIFIED BY 'e13aja';
+CREATE USER 'e13'@'localhost' IDENTIFIED BY 'e13aja';
+CREATE DATABASE dbe13;
+GRANT ALL PRIVILEGES ON *.* TO 'e13'@'%';
+GRANT ALL PRIVILEGES ON *.* TO 'e13'@'localhost';
+FLUSH PRIVILEGES;
+
 <h4>Testing</h4> <a name="testing13"></a>
+
+Fern: 
+mariadb --host=10.43.2.2 --port=3306 --user=e13 --password=e13aja dbe13 -e "SHOW DATABASES;"
+
+<img width="470" alt="soal1" src="images/2a.png">
 
 <h3>Soal 14</h3>
 Frieren, Flamme, dan Fern memiliki Riegel Channel sesuai dengan quest guide berikut. Jangan lupa melakukan instalasi PHP8.0 dan Composer
 Riegel Channel memiliki beberapa endpoint yang harus ditesting sebanyak 100 request dengan 10 request/second. Tambahkan response dan hasil testing pada grimoire.
-POST /auth/register (15)
-POST /auth/login (16)
-GET /me (17)
+
 
 <h4>Solusi</h4> <a name="solusi14"></a>
+
+3F:
+wget https://getcomposer.org/download/2.0.13/composer.phar
+chmod +x composer.phar
+mv composer.phar /usr/local/bin/composer
+
+apt-get install git -y
+cd /var/www && git clone https://github.com/martuafernando/laravel-praktikum-jarkom
+cd /var/www/laravel-praktikum-jarkom && composer update
+
+cd /var/www/laravel-praktikum-jarkom && cp .env.example .env
+
+nano /var/www/laravel-praktikum-jarkom/.env
+
+
+cd /var/www/laravel-praktikum-jarkom && php artisan key:generate
+cd /var/www/laravel-praktikum-jarkom && php artisan config:cache
+cd /var/www/laravel-praktikum-jarkom && php artisan migrate
+cd /var/www/laravel-praktikum-jarkom && php artisan db:seed
+cd /var/www/laravel-praktikum-jarkom && php artisan storage:link
+cd /var/www/laravel-praktikum-jarkom && php artisan jwt:secret
+cd /var/www/laravel-praktikum-jarkom && php artisan config:clear
+chown -R www-data.www-data /var/www/laravel-praktikum-jarkom/storage
+
+
+nano /etc/nginx/sites-available/jarkom
+server {
+    listen 9001;
+
+    root /var/www/laravel-praktikum-jarkom/public;
+
+    index index.php index.html index.htm;
+    server_name _;
+
+    location / {
+            try_files $uri $uri/ /index.php?$query_string;
+    }
+
+    # pass PHP scripts to FastCGI server
+    location ~ \.php$ {
+      include snippets/fastcgi-php.conf;
+      fastcgi_pass unix:/var/run/php/php8.0-fpm.sock;
+    }
+
+    location ~ /\.ht {
+            deny all;
+    }
+
+    error_log /var/log/nginx/implementasi_error.log;
+    access_log /var/log/nginx/implementasi_access.log;
+}
+
+unlink /etc/nginx/sites-enabled/default
+ln -s /etc/nginx/sites-available/jarkom /etc/nginx/sites-enabled
+
 <h4>Testing</h4> <a name="testing14"></a>
 
-<h3>Soal 15</h3>
-<h4>Solusi</h4> <a name="solusi15"></a>
-<h4>Testing</h4> <a name="testing15"></a>
+lynx localhost:9001
 
-<h3>Soal 16</h3>
-<h4>Solusi</h4> <a name="solusi16"></a>
-<h4>Testing</h4> <a name="testing16"></a>
+nb
+===
+10.43.4.4:9001; # Frieren
+10.43.4.5:9002; # Flamme
+10.43.4.6:9003; # Fern 
+===
 
-<h3>Soal 17</h3>
-<h4>Solusi</h4> <a name="solusi17"></a>
-<h4>Testing</h4> <a name="testing17"></a>
+<img width="470" alt="soal1" src="images/2a.png">
+
+<h3>Soal 15,16,17</h3>
+POST /auth/register (15)
+
+REVOLTE 
+a. POST /auth/register
+echo '
+{
+  "username": "e13",
+  "password": "e13aja"
+}' > register.json
+
+ab -n 100 -c 10 -p register.json -T application/json http://10.43.4.4:9001/api/auth/register
+
+<img width="470" alt="soal1" src="images/2a.png">
+
+POST /auth/login (16)
+
+echo '
+{
+  "username": "e13",
+  "password": "e13aja"
+}' > login.json
+
+ab -n 100 -c 10 -p login.json -T application/json http://10.43.4.4:9001/api/auth/login
+
+
+<img width="470" alt="soal1" src="images/2a.png">
+
+
+GET /me (17)
+
+curl -X POST -H "Content-Type: application/json" -d @login.json http://10.43.4.4:9001/api/auth/login > login_output.txt
+
+echo 'nameserver 192.168.122.1' > /etc/resolv.conf
+apt-get update
+apt-get install jq -y
+
+token=$(cat login_output.txt | jq -r '.token')
+
+ab -n 100 -c 10 -H "Authorization: Bearer $token" http://10.43.4.4:9001/api/me
+
+<img width="470" alt="soal1" src="images/2a.png">
+
+
+<h4>Solusi</h4> <a name="solusi15,16,17"></a>
+<h4>Testing</h4> <a name="testing16,17,18"></a>
 
 <h3>Soal 18</h3>
 Untuk memastikan ketiganya bekerja sama secara adil untuk mengatur Riegel Channel maka implementasikan Proxy Bind pada Eisen untuk mengaitkan IP dari Frieren, Flamme, dan Fern.
 
 <h4>Solusi</h4> <a name="solusi18"></a>
+
+
+
+==========NOMER 18===========
+EISEN
+/etc/nginx/sites-available/laravel-worker
+
+upstream worker {
+    server 10.33.4.4:9001;
+    server 10.33.4.5:9002;
+    server 10.43.4.6:9003;
+}
+
+server {
+    listen 81;
+    server_name rigel.canyon.e13.com www.rigel.canyon.e13.com;
+
+    location / {
+        proxy_pass http://worker;
+    }
+}
+
+ln -s /etc/nginx/sites-available/laravel-worker /etc/nginx/sites-enabled/laravel-worker
+
+service nginx restart
+
 <h4>Testing</h4> <a name="testing18"></a>
+
+Revolte
+
+ab -n 100 -c 10 -p login.json -T application/json http://www.rigel.canyon.e13.com/api/auth/login
+
+<img width="470" alt="soal1" src="images/2a.png">
 
 <h3>Soal 19</h3>
 Untuk meningkatkan performa dari Worker, coba implementasikan PHP-FPM pada Frieren, Flamme, dan Fern. Untuk testing kinerja naikkan 
@@ -192,12 +993,66 @@ Untuk meningkatkan performa dari Worker, coba implementasikan PHP-FPM pada Frier
 sebanyak tiga percobaan dan lakukan testing sebanyak 100 request dengan 10 request/second kemudian berikan hasil analisisnya pada Grimoire.
 
 <h4>Solusi</h4> <a name="solusi19"></a>
+
+==========NOMER 19===========
+1: 5-2-1-3
+2: 25-5-3-10 
+4: 75-10-5-20
+
+3F
+echo '[www]
+user = www-data
+group = www-data
+listen = /run/php/php8.0-fpm.sock
+listen.owner = www-data
+listen.group = www-data
+php_admin_value[disable_functions] = exec,passthru,shell_exec,system
+php_admin_flag[allow_url_fopen] = off
+
+; Choose how the process manager will control the number of child processes.
+
+pm = dynamic
+pm.max_children = 5
+pm.start_servers = 2
+pm.min_spare_servers = 1
+pm.max_spare_servers = 3' > /etc/php/8.0/fpm/pool.d/www.conf
+
+service php8.0-fpm restart
+
+Revolte: ab -n 100 -c 10 http://rigel.canyon.e13.com/
+
+
 <h4>Testing</h4> <a name="testing19"></a>
+
+Skenario 1:
+
+
+<img width="470" alt="soal1" src="images/2a.png">
+
+Skenario 2:
+
+<img width="470" alt="soal1" src="images/2a.png">
+
+Skenario 3:
+
+<img width="470" alt="soal1" src="images/2a.png">
 
 <h3>Soal 20</h3>
 Nampaknya hanya menggunakan PHP-FPM tidak cukup untuk meningkatkan performa dari worker maka implementasikan Least-Conn pada Eisen. Untuk testing kinerja dari worker tersebut dilakukan sebanyak 100 request dengan 10 request/second
 
 <h4>Solusi</h4> <a name="solusi20"></a>
+
+Eisen
+nano /etc/nginx/sites-available/laravel-worker
+ least_conn;
+
+service nginx restart
+
+
 <h4>Testing</h4> <a name="testing20"></a>
 
+Revolte: ab -n 100 -c 10 http://rigel.canyon.e13.com/
+
+
+<img width="470" alt="soal1" src="images/2a.png">
 
