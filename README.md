@@ -62,13 +62,16 @@ dengan ketentuan sebagai berikut:
 Setelah mengalahkan Demon King, perjalanan berlanjut. Kali ini, kalian diminta untuk melakukan register domain berupa riegel.canyon.yyy.com untuk worker Laravel dan granz.channel.yyy.com untuk worker PHP (0) mengarah pada worker yang memiliki IP [prefix IP].x.1.
 
 **Heiter**
-domain: nomer0.sh
 
-Membuat Domain granz.channel.e13.com:
+**Membuat Domain granz.channel.e13.com:**
 
 Ip Heiter: 10.43.1.3 IP Tujuan: 10.43.3.1
 
 - Edit _file_ konfigurasi `named.conf.local` pada `/etc/bind/named.conf.local`
+```
+nano /etc/bind/named.conf.local
+```
+
 ```
 zone "granz.channel.e13.com" {
 	type master;
@@ -76,17 +79,35 @@ zone "granz.channel.e13.com" {
 };
 ```
 
+- Buat folder **jarkom** di dalam **/etc/bind**
+```
 mkdir /etc/bind/jarkom
+```
 
+- Copy file **db.local** pada path **/etc/bind** ke dalam folder **jarkom** yang baru saja dibuat dan ubah namanya menjadi granz.channel.e13.com
+```
 cp /etc/bind/db.local /etc/bind/jarkom/granz.channel.e13.com
-
+```
+- Buka file granz.channel.e13.com dan edit seperti gambar berikut:
+``` 
 nano /etc/bind/jarkom/granz.channel.e13.com
+```
 
+<img width="470" alt="soal1" src="images/2.png">
+
+```
 service bind9 restart
+```
 
 **REVERSE**
 
+- Edit file **/etc/bind/named.conf.local**
+```  
 nano /etc/bind/named.conf.local
+```
+
+- Tambahkan konfigurasi berikut ke dalam file **named.conf.local.**
+  
 ```
 zone "3.43.10.in-addr.arpa" {
     type master;
@@ -94,19 +115,30 @@ zone "3.43.10.in-addr.arpa" {
 };
 ```
 
+- Copykan file db.local pada path **/etc/bind** ke dalam folder jarkom yang baru saja dibuat dan ubah namanya menjadi 3.43.10.in-addr.arpa
+```  
 cp /etc/bind/db.local /etc/bind/jarkom/3.43.10.in-addr.arpa
+```
 
+- Edit file 3.43.10.in-addr.arpa menjadi seperti gambar di bawah ini
+```
 nano /etc/bind/jarkom/3.43.10.in-addr.arpa
 ```
+<img width="470" alt="soal1" src="images/2.png">
+
+```
+service bind9 restart
 ```
 
-service bind9 restart
-
-Membuat Domain rigel.canyon.e13.com:
+**Membuat Domain rigel.canyon.e13.com:**
 
 IP Heiter: 10.43.1.3; IP Tujuan: 10.43.4.1
 
+- Edit _file_ konfigurasi `named.conf.local` pada `/etc/bind/named.conf.local`
+```
 nano /etc/bind/named.conf.local
+```
+
 ```
 zone "rigel.canyon.e13.com" {
 	type master;
@@ -114,17 +146,37 @@ zone "rigel.canyon.e13.com" {
 };
 ```
 
+- Buat folder **jarkom** di dalam **/etc/bind**
+```
 mkdir /etc/bind/jarkom
+```
 
-cp /etc/bind/db.local /etc/bind/jarkom/rigel.canyon.e13.com
+- Copy file **db.local** pada path **/etc/bind** ke dalam folder **jarkom** yang baru saja dibuat dan ubah namanya menjadi rigel.canyon.e13.com
+```
+cp /etc/bind/db.local /etc/bind/jarkom/granz.channel.e13.com
+```
 
+- Buka file rigel.canyon.e13.com dan edit seperti gambar berikut:
+  
+``` 
 nano /etc/bind/jarkom/rigel.canyon.e13.com
 ```
+
+<img width="470" alt="soal1" src="images/2.png">
+
+```
+service bind9 restart
 ```
 
-service bind9 restart
-
 **REVERSE**
+
+- Edit file **/etc/bind/named.conf.local**
+```  
+nano /etc/bind/named.conf.local
+```
+
+- Tambahkan konfigurasi berikut ke dalam file **named.conf.local.**
+  
 ```
 6 10.43.3.32;
         range 10.43.3.64 10.43.3.80;
@@ -149,14 +201,14 @@ zone "4.43.10.in-addr.arpa" {
 };
 ```
 
+- Copykan file db.local pada path **/etc/bind** ke dalam folder jarkom yang baru saja dibuat dan ubah namanya menjadi 4.43.10.in-addr.arpa
+```  
 cp /etc/bind/db.local /etc/bind/jarkom/4.43.10.in-addr.arpa
-
-nano /etc/bind/jarkom/4.43.10.in-addr.arpa
-```
 ```
 
+```
 service bind9 restart
-
+```
 
 <h3>Soal 1</h3>
 Lakukan konfigurasi sesuai dengan peta yang sudah diberikan!
@@ -373,6 +425,7 @@ apt-get install lynx -y
 Kemudian, karena masih banyak spell yang harus dikumpulkan, bantulah para petualang untuk memenuhi kriteria berikut.:
 
 <h3>Soal 2&3</h3>
+
 Semua CLIENT harus menggunakan konfigurasi dari DHCP Server.
 
 - Client yang melalui Switch3 mendapatkan range IP dari [prefix IP].3.16 - [prefix IP].3.32 dan [prefix IP].3.64 - [prefix IP].3.80
@@ -381,13 +434,19 @@ Semua CLIENT harus menggunakan konfigurasi dari DHCP Server.
 
   <h4>Solusi</h4> <a name="solusi2&3"></a>
 
-  Konfigurasi DHCP Server (Himmel) + sekalian fixed address
->> edit file /etc/default/isc-dhcp-server
+- Konfigurasi DHCP Server (Himmel) pada **/etc/default/isc-dhcp-server**
+```
 INTERFACESv4 = "eth3 eth4" >> error terus kuganti eth0 bisa
+```
 
-step:
-1. nano /etc/dhcp/dhcpd.conf
+- Konfigurasi fixed address pada  **/etc/dhcp/dhcpd.conf**
+```
+nano /etc/dhcp/dhcpd.conf
+```
 
+- Tambahkan konfigurasi berikut:
+  
+```
 subnet 10.43.1.0 netmask 255.255.255.0{
 #    option routers 10.43.1.1;
 }
@@ -412,9 +471,12 @@ host Lugner {
 	hardware ethernet b6:2f:0e:2d:38:5a;
 	fixed-address 10.43.3.6;
 }
-
-2. service isc-dhcp-server restart
-3. service isc-dhcp-server status
+```
+```
+service isc-dhcp-server restart
+   
+service isc-dhcp-server status
+```
 
 <h4>Testing</h4> <a name="testing2&3"></a>
 
@@ -435,14 +497,24 @@ Stark
 Client mendapatkan DNS dari Heiter dan dapat terhubung dengan internet melalui DNS tersebut
 
 <h4>Solusi</h4> <a name="solusi4"></a>
->>> Heiter
-edit /etc/bind/named.conf.options
+
+**Heiter**
+
+- lakukan pengeditan pada `/etc/bind/named.conf.options`
+
+** Client** (Optional)
+
+```
+echo nameserver 192.168.122.1  > /etc/resolv.conf
+```
+
+```
 service bind9 restart
-di client:
-—- kalo perlu edit /etc/resolv.conf terus nameserver 192.168.122.1
+```
 
 <h4>Testing</h4> <a name="testing4"></a>
->> Hasil testing di Client (Revolte): 
+
+Client (Revolte): 
 
 <img width="470" alt="soal1" src="images/2.png">
 
@@ -451,9 +523,13 @@ Lama waktu DHCP server meminjamkan alamat IP kepada Client yang melalui Switch3 
 
 <h4>Solusi</h4> <a name="solusi5"></a>
 
->>> Himmel
-edit /etc/dhcp/dhcpd.conf
-edit default-lease-time dan max-lease-time
+ ** Himmel**
+
+- Lakukan konfigurasi pada `/etc/dhcp/dhcpd.conf`
+  
+- Edit default-lease-time dan max-lease-time
+
+```
 subnet 10.43.3.0 netmask 255.255.255.0 {
         range 10.43.3.16 10.43.3.32;
         range 10.43.3.64 10.43.3.80;
@@ -473,11 +549,17 @@ subnet 10.43.4.0 netmask 255.255.255.0 {
         default-lease-time 720;
         max-lease-time 5760;
 }
+```
 
+```
 service isc-dhcp-server restart
+
 service isc-dhcp-server status
+```
 
 <h4>Testing</h4> <a name="testing5"></a>
+
+
 
 Berjalannya waktu, petualang diminta untuk melakukan deployment.
 
@@ -486,31 +568,55 @@ Pada masing-masing worker PHP, lakukan konfigurasi virtual host untuk website be
 
 <h4>Solusi</h4> <a name="solusi6"></a>
 
-3L: nomer6.sh
-testing: revolte/ritcher lynx http://10.43.3.4/5/6
-
+- Setting aplikasi:
+```
 apt-get update
 apt-get install nginx -y
 apt-get install apache2 -y
 apt-get install php -y
-# apt-get install libapache2-mod-php7.0 -y
+apt-get install libapache2-mod-php7.0 -y
 service apache2 start
 apt-get install wget -y
 apt-get install unzip -y
-
+```
+- Buat direktori
+```
 mkdir /var/www/lawine
+```
+
+```
 echo nameserver 192.168.122.1 > /etc/resolv.conf
+```
+
+```
 wget --no-check-certificate 'https://drive.google.com/uc?export=download&id=1ViSkRq7SmwZgdK64eRbr5Fm1EGCTPrU1' -O /var/www/lawine/downloaded_file.zip
+```
+
+```
 unzip /var/www/lawine/downloaded_file.zip -d /var/www/lawine/
+```
 
+```
 mv /var/www/lawine/modul-3 /var/www/lawine/public
+```
 
+```
 cp /etc/apache2/sites-available/000-default.conf /etc/apache2/sites-available/granz.channel.e13.com.conf
+```
 
+```
 rm /etc/apache2/sites-available/000-default.conf
+```
 
+- Edit file konfigurasi pada **/etc/apache2/sites-available/granz.channel.e13.com.conf**
+  
+```
 nano /etc/apache2/sites-available/granz.channel.e13.com.conf
+```
 
+- Tambahkan:
+  
+```
 <VirtualHost *:80>
     #ServerAdmin webmaster@lawine.canyon.e13.com
     ServerAdmin webmaster@localhost
@@ -527,21 +633,33 @@ nano /etc/apache2/sites-available/granz.channel.e13.com.conf
     CustomLog ${APACHE_LOG_DIR}/access.log combined
 
 </VirtualHost>
+```
 
+- Aktifkan konfigurasi website
+```
 a2ensite granz.channel.e13.com.conf
-
+```
+```
 service apache2 restart
+```
 
+**Revolte & Ritcher**
 
-==== revolte & ritcher: nomer6.sh
+- Setting aplikasi di client
+  
+```
 echo 'nameserver 192.168.122.1' > /etc/resolv.conf
 apt-get update
-# apt-get install dnsutils -y
+apt-get install dnsutils -y
 apt-get install lynx -y
+```
 
 <h4>Testing</h4> <a name="testing6"></a>
 
+**Revolte/Ritcher**
+```
 lynx http://10.43.3.4
+```
 
 <img width="470" alt="soal1" src="images/2a.png">
 
@@ -562,17 +680,26 @@ Lugner: 1-1-25	1-1-25 2-2-50 2
 
 urutan: Linie - Lugner - Lawine; Weighted Robin
 
-3L: nomer7.sh
-LB: nomer7.sh
+**Linie - Lugner - Lawine**
 
-3L--------------
+- Update & install dengan perintah:
+  
+```
 echo nameserver 192.168.122.1 > /etc/resolv.conf
 apt-get update
 apt-get install nginx php php-fpm -y
+```
 
+```
 service php7.3-fpm start
-nano /etc/nginx/sites-available/jarkom
+```
 
+- Lakukan pengeditan pada **/etc/nginx/sites-available/jarkom**
+```
+nano /etc/nginx/sites-available/jarkom
+```
+- Tambahkan:
+```
 server {
 
 listen 8001;
@@ -627,25 +754,40 @@ server_name granz.channel.e13.com;
 
 error_log /var/log/nginx/lb_error.log;
 access_log /var/log/nginx/lb_access.log;
-
 }
-
+```
+```
 unlink /etc/nginx/sites-enabled/default
+```
+
+```
 ln -s /etc/nginx/sites-available/lb-jarkom /etc/nginx/sites-enabled
+```
+
+```
 service nginx restart
 nginx -t
+```
 
-==revolte/ritcher
-lynx http://10.43.3.4:8001
-echo 'nameserver 192.168.122.1' > /etc/resolv.conf
-apt-get update
-
-apt-get install apache2-utils -y
-
-ab -n 1000 -c 100 http://10.43.3.4/
 
 <h4>Testing</h4> <a name="testing7"></a>
 
+**Revolte/Ritcher**
+```
+lynx http://10.43.3.4:8001
+echo 'nameserver 192.168.122.1' > /etc/resolv.conf
+```
+```
+apt-get update
+
+apt-get install apache2-utils -y
+```
+
+```
+ab -n 1000 -c 100 http://10.43.3.4/
+```
+
+<img width="470" alt="soal1" src="images/2a.png">
 
 <h3>Soal 8</h3>
 Karena diminta untuk menuliskan grimoire, buatlah analisis hasil testing dengan 200 request dan 10 request/second masing-masing algoritma Load Balancer dengan ketentuan sebagai berikut:
@@ -671,8 +813,9 @@ y= waktu
 III. Analisis
 Beri penjelasan algoritma mana yang paling baik, alasan, dan bagaimana cara kerjanya sehingga maksimal.
 Link: https://docs.google.com/document/d/17DwO04MM4hG5LJl9P0EKF8MVtzNXOSv-/edit?usp=sharing&ouid=111413771441952030555&rtpof=true&sd=true 
-\\\\\\\\\\\
----buat htop
+
+**Buat htop**
+
 LB dan 3L: 
 echo 'nameserver 192.168.122.1' > /etc/resolv.conf
 apt-get update
