@@ -153,7 +153,7 @@ mkdir /etc/bind/jarkom
 
 - Copy file **db.local** pada path **/etc/bind** ke dalam folder **jarkom** yang baru saja dibuat dan ubah namanya menjadi rigel.canyon.e13.com
 ```
-cp /etc/bind/db.local /etc/bind/jarkom/granz.channel.e13.com
+cp /etc/bind/db.local /etc/bind/jarkom/rigel.canyon.e13.com
 ```
 
 - Buka file rigel.canyon.e13.com dan edit seperti gambar berikut:
@@ -175,7 +175,7 @@ service bind9 restart
 nano /etc/bind/named.conf.local
 ```
 
-- Tambahkan konfigurasi berikut ke dalam file **named.conf.local.**
+- Tambahkan konfigurasi berikut ke dalam file **named.conf.local**
   
 ```
 6 10.43.3.32;
@@ -436,7 +436,7 @@ Semua CLIENT harus menggunakan konfigurasi dari DHCP Server.
 
 - Konfigurasi DHCP Server (Himmel) pada **/etc/default/isc-dhcp-server**
 ```
-INTERFACESv4 = "eth3 eth4" >> error terus kuganti eth0 bisa
+INTERFACESv4 = "eth0"
 ```
 
 - Konfigurasi fixed address pada  **/etc/dhcp/dhcpd.conf**
@@ -472,6 +472,9 @@ host Lugner {
 	fixed-address 10.43.3.6;
 }
 ```
+
+- Restart dhcp server
+  
 ```
 service isc-dhcp-server restart
    
@@ -480,16 +483,20 @@ service isc-dhcp-server status
 
 <h4>Testing</h4> <a name="testing2&3"></a>
 
-Revolte
+ **Revolte**
+ 
 <img width="470" alt="soal1" src="images/2.png">
 
-Ritcher
+ **Ritcher**
+ 
 <img width="470" alt="soal1" src="images/2.png">
 
-Sein
+ **Sein**
+ 
 <img width="470" alt="soal1" src="images/2.png">
 
-Stark
+ **Stark**
+ 
 <img width="470" alt="soal1" src="images/2.png">
 
 
@@ -502,12 +509,6 @@ Client mendapatkan DNS dari Heiter dan dapat terhubung dengan internet melalui D
 
 - lakukan pengeditan pada `/etc/bind/named.conf.options`
 
-**Client** (Optional)
-
-```
-echo nameserver 192.168.122.1  > /etc/resolv.conf
-```
-
 ```
 service bind9 restart
 ```
@@ -515,6 +516,10 @@ service bind9 restart
 <h4>Testing</h4> <a name="testing4"></a>
 
 Client (Revolte): 
+
+```
+echo nameserver 192.168.122.1  > /etc/resolv.conf
+```
 
 <img width="470" alt="soal1" src="images/2.png">
 
@@ -568,6 +573,8 @@ Pada masing-masing worker PHP, lakukan konfigurasi virtual host untuk website be
 
 <h4>Solusi</h4> <a name="solusi6"></a>
 
+ **Lawine, Linea, Lugner (PHP Worker)**
+ 
 - Setting aplikasi:
 ```
 apt-get update
@@ -584,26 +591,32 @@ apt-get install unzip -y
 mkdir /var/www/lawine
 ```
 
+- Setting nameserver
+  
 ```
 echo nameserver 192.168.122.1 > /etc/resolv.conf
 ```
 
+- Download link file **granz.channel.e13.com**
 ```
 wget --no-check-certificate 'https://drive.google.com/uc?export=download&id=1ViSkRq7SmwZgdK64eRbr5Fm1EGCTPrU1' -O /var/www/lawine/downloaded_file.zip
 ```
 
+- Unzip file
 ```
 unzip /var/www/lawine/downloaded_file.zip -d /var/www/lawine/
 ```
 
+- Pindahkan file **/var/www/lawine/modul-3** ke  **/var/www/lawine/public**
 ```
 mv /var/www/lawine/modul-3 /var/www/lawine/public
 ```
 
+- Copy file **000-default.conf** ke **/etc/apache2/sites-available/granz.channel.e13.com.conf**
 ```
 cp /etc/apache2/sites-available/000-default.conf /etc/apache2/sites-available/granz.channel.e13.com.conf
 ```
-
+- Hapus file **000-default.conf** pada direktori **/etc/apache2/sites-available**
 ```
 rm /etc/apache2/sites-available/000-default.conf
 ```
@@ -643,7 +656,9 @@ a2ensite granz.channel.e13.com.conf
 service apache2 restart
 ```
 
-**Revolte & Ritcher**
+<h4>Testing</h4> <a name="testing6"></a>
+
+**Revolte/Ritcher**
 
 - Setting aplikasi di client
   
@@ -654,9 +669,6 @@ apt-get install dnsutils -y
 apt-get install lynx -y
 ```
 
-<h4>Testing</h4> <a name="testing6"></a>
-
-**Revolte/Ritcher**
 ```
 lynx http://10.43.3.4
 ```
@@ -728,15 +740,28 @@ location ~ /\.ht {
 error_log /var/log/nginx/jarkom_error.log;
 access_log /var/log/nginx/jarkom_access.log;
 }
-
+```
+```
 unlink /etc/nginx/sites-enabled/default
+```
+```
 ln -s /etc/nginx/sites-available/jarkom /etc/nginx/sites-enabled
+```
+```
 service nginx restart
 nginx -t
+```
 
-LB---------------
+ **Eisen (Load Balancer)**
+ 
+- Lakukan pengeditan file **lb-jarkom** pada direktori **/etc/nginx/sites-available**
+```
 nano /etc/nginx/sites-available/lb-jarkom
-#Default menggunakan Round Robin
+```
+
+- Load Balncing menggunakan menggunakan Round Robin
+  
+```
 upstream backend  {
 server 10.43.3.4:8001 weight=1; #IP Lawine
 server 10.43.3.5:8002 weight=2; #IP Linie
@@ -758,6 +783,7 @@ error_log /var/log/nginx/lb_error.log;
 access_log /var/log/nginx/lb_access.log;
 }
 ```
+
 ```
 unlink /etc/nginx/sites-enabled/default
 ```
@@ -777,11 +803,16 @@ nginx -t
 **Revolte/Ritcher**
 ```
 lynx http://10.43.3.4:8001
+```
+
+- Setting nameserver
+```
 echo 'nameserver 192.168.122.1' > /etc/resolv.conf
 ```
+
+- Update package list
 ```
 apt-get update
-
 apt-get install apache2-utils -y
 ```
 
