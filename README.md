@@ -538,10 +538,6 @@ service bind9 restart
 
 Client (Revolte): 
 
-```
-echo nameserver 192.168.122.1  > /etc/resolv.conf
-```
-
 <img width="470" alt="soal1" src="images/4a.png">
 
 <h3>Soal 5</h3>
