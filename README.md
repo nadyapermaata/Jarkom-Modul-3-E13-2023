@@ -702,13 +702,7 @@ aturlah agar Eisen dapat bekerja dengan maksimal, lalu lakukan testing dengan 10
 
 <h4>Solusi</h4> <a name="solusi7"></a>
 
-Lawine: 4-2-80	2-1-40 2-1-40 1
-
-Linie:  2-2-50	1-1-25 2-2-50 2
-
-Lugner: 1-1-25	1-1-25 2-2-50 2
-
-urutan: Linie - Lugner - Lawine; Weighted Robin
+Dari soal, dengan melihat resource server yang diberikan, kita akan menggunakan weighted Round Robin 
 
 **Linie - Lugner - Lawine**
 
@@ -853,43 +847,50 @@ Karena diminta untuk menuliskan grimoire, buatlah analisis hasil testing dengan 
 
 <h4>Solusi</h4> <a name="solusi8"></a>
 
-I. Hasil Testing
-a. Algo A
-Hasil testing AB dengan lampiran SS htop
-...
-d. Algo D 
+Link analisis: https://drive.google.com/file/d/1FR2EsVir04SSU6R0PEqrUv9TTa6xX_25/view?usp=sharing 
 
-II. Grafik
-Request per second untuk tiap Algo
-x= nama algo
-y= waktu
-
-III. Analisis
-Beri penjelasan algoritma mana yang paling baik, alasan, dan bagaimana cara kerjanya sehingga maksimal.
-
-Link: https://docs.google.com/document/d/17DwO04MM4hG5LJl9P0EKF8MVtzNXOSv-/edit?usp=sharing&ouid=111413771441952030555&rtpof=true&sd=true 
-
-**Buat htop**
-
-LB dan 3L: 
+Sebelum melakukan testing, dilakukan set up sebagai berikut:
+Eisen, Lawine, Linie, dan Lugner: 
+```
 echo 'nameserver 192.168.122.1' > /etc/resolv.conf
 apt-get update
 apt-get install htop -y
+```
 
+Beberapa algoritma yang digunakan ialah:
 ---roundrobin
-eisen: apus weight nya
+Karena pada soal sebelumnya telah menerapkan algoritma weighted round robin, kita bisa hapus weightnya untuk hanya menerapkan default round robin lalu melakukan testing.
+
 revolte: ab -n 200 -c 10 http://granz.channel.e13.com/
-htop
+
+<img width="470" alt="soal1" src="images/8a.png">
 
 ---least connection
-eisen:nomer8a.sh
+Pada Eisen menambahkan konfigurasi:
+```
+   least_conn;
+```
 revolte: ab -n 200 -c 10 http://granz.channel.e13.com/
-htop
+
+<img width="470" alt="soal1" src="images/8b.png">
 
 ---ip hash
+Pada Eisen menambahkan konfigurasi:
+```
+   ip_hash;
+```
+revolte: ab -n 200 -c 10 http://granz.channel.e13.com/
 
----hash gen
+<img width="470" alt="soal1" src="images/8c.png">
 
+---generic hash
+Pada Eisen menambahkan konfigurasi:
+```
+   hash $request_uri consistent;
+```
+revolte: ab -n 200 -c 10 http://granz.channel.e13.com/
+
+<img width="470" alt="soal1" src="images/8d.png">
 <h4>Testing</h4> <a name="testing8"></a>
 
 <h3>Soal 9</h3>
@@ -897,7 +898,7 @@ Dengan menggunakan algoritma Round Robin, lakukan testing dengan menggunakan 3 w
 
 <h4>Solusi</h4> <a name="solusi9"></a>
 
-**LB 3 worker, 2 worker, 1 worker**
+Pada soal ini, kita diminta melakukan testing menggunakan jumlah worker yang berbeda, yaitu 3,2,dan 1. Untuk hasil analisa lengkap dapat dilihat di https://drive.google.com/file/d/1FR2EsVir04SSU6R0PEqrUv9TTa6xX_25/view?usp=sharing 
 
 <h4>Testing</h4> <a name="testing9"></a>
 
@@ -906,12 +907,22 @@ Dengan menggunakan algoritma Round Robin, lakukan testing dengan menggunakan 3 w
 ab -n 100 -c 10 http://granz.channel.e13.com/
 ```
 
+**3 Worker**
+<img width="470" alt="soal1" src="images/9a.png">
+
+**2 Worker**
+<img width="470" alt="soal1" src="images/9b.png">
+
+**1 Worker**
+<img width="470" alt="soal1" src="images/9c.png">
+
+
 <h3>Soal 10</h3>
 Selanjutnya coba tambahkan konfigurasi autentikasi di LB dengan dengan kombinasi username: “netics” dan password: “ajkyyy”, dengan yyy merupakan kode kelompok. Terakhir simpan file “htpasswd” nya di /etc/nginx/rahasisakita/
 
 <h4>Solusi</h4> <a name="solusi10"></a>
 
-**Load Balancer**
+**Eisen (Load Balancer)**
 
 - Update package lis
 ```
