@@ -35,7 +35,7 @@ Prefix IP Kelompok E13: 10.43
 Soal:
 Perjalanan selanjutnya akan menggunakan peta berikut:
 
-<img width="470" alt="soal1" src="images/01.png">
+<img width="470" alt="soal 1" src="images/01.png">
 
 dengan ketentuan sebagai berikut:
 
@@ -526,6 +526,9 @@ Client mendapatkan DNS dari Heiter dan dapat terhubung dengan internet melalui D
 **Heiter**
 
 - lakukan pengeditan pada `/etc/bind/named.conf.options`
+
+<img width="470" alt="soal1" src="images/4y.png">
+<img width="470" alt="soal1" src="images/4z.png">
 
 ```
 service bind9 restart
