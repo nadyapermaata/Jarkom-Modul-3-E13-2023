@@ -857,13 +857,27 @@ apt-get update
 apt-get install htop -y
 ```
 
-Beberapa algoritma yang digunakan ialah:
+Beberapa algoritma yang digunakan ialah: <h4>Testing</h4> <a name="testing8"></a>
+
 ---roundrobin
 Karena pada soal sebelumnya telah menerapkan algoritma weighted round robin, kita bisa hapus weightnya untuk hanya menerapkan default round robin lalu melakukan testing.
 
 revolte: ab -n 200 -c 10 http://granz.channel.e13.com/
 
 <img width="470" alt="soal1" src="images/8a.png">
+
+Screenshot htop
+- Eisen
+<img width="470" alt="soal1" src="images/8b.png">
+
+- Lawine
+<img width="470" alt="soal1" src="images/8c.png">
+
+- Linie
+<img width="470" alt="soal1" src="images/8d.png">
+
+- Lugner
+<img width="470" alt="soal1" src="images/8e.png">
 
 ---least connection
 Pada Eisen menambahkan konfigurasi:
@@ -872,7 +886,20 @@ Pada Eisen menambahkan konfigurasi:
 ```
 revolte: ab -n 200 -c 10 http://granz.channel.e13.com/
 
-<img width="470" alt="soal1" src="images/8b.png">
+<img width="470" alt="soal1" src="images/8f.png">
+
+Screenshot htop
+- Eisen
+<img width="470" alt="soal1" src="images/8g.png">
+
+- Lawine
+<img width="470" alt="soal1" src="images/8h.png">
+
+- Linie
+<img width="470" alt="soal1" src="images/8i.png">
+
+- Lugner
+<img width="470" alt="soal1" src="images/8j.png">
 
 ---ip hash
 Pada Eisen menambahkan konfigurasi:
@@ -881,7 +908,20 @@ Pada Eisen menambahkan konfigurasi:
 ```
 revolte: ab -n 200 -c 10 http://granz.channel.e13.com/
 
-<img width="470" alt="soal1" src="images/8c.png">
+<img width="470" alt="soal1" src="images/8k.png">
+
+Screenshot htop
+- Eisen
+<img width="470" alt="soal1" src="images/8l.png">
+
+- Lawine
+<img width="470" alt="soal1" src="images/8m.png">
+
+- Linie
+<img width="470" alt="soal1" src="images/8n.png">
+
+- Lugner
+<img width="470" alt="soal1" src="images/8o.png">
 
 ---generic hash
 Pada Eisen menambahkan konfigurasi:
@@ -890,8 +930,20 @@ Pada Eisen menambahkan konfigurasi:
 ```
 revolte: ab -n 200 -c 10 http://granz.channel.e13.com/
 
-<img width="470" alt="soal1" src="images/8d.png">
-<h4>Testing</h4> <a name="testing8"></a>
+<img width="470" alt="soal1" src="images/8p.png">
+
+Screenshot htop
+- Eisen
+<img width="470" alt="soal1" src="images/8q.png">
+
+- Lawine
+<img width="470" alt="soal1" src="images/8r.png">
+
+- Linie
+<img width="470" alt="soal1" src="images/8s.png">
+
+- Lugner
+<img width="470" alt="soal1" src="images/8t.png">
 
 <h3>Soal 9</h3>
 Dengan menggunakan algoritma Round Robin, lakukan testing dengan menggunakan 3 worker, 2 worker, dan 1 worker sebanyak 100 request dengan 10 request/second, kemudian tambahkan grafiknya pada grimoire.
