@@ -970,6 +970,8 @@ ab -n 100 -c 10 http://granz.channel.e13.com/
 ```
 
 **3 Worker**
+
+
 <img width="470" alt="soal1" src="images/9a.png">
 
 Screenshot htop:
