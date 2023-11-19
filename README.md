@@ -35,7 +35,7 @@ Prefix IP Kelompok E13: 10.43
 Soal:
 Perjalanan selanjutnya akan menggunakan peta berikut:
 
-<img width="470" alt="soal1" src="images/2.png">
+<img width="470" alt="soal1" src="images/0.png">
 
 dengan ketentuan sebagai berikut:
 
@@ -93,7 +93,7 @@ cp /etc/bind/db.local /etc/bind/jarkom/granz.channel.e13.com
 nano /etc/bind/jarkom/granz.channel.e13.com
 ```
 
-<img width="470" alt="soal1" src="images/2.png">
+<img width="470" alt="soal1" src="images/0a.png">
 
 ```
 service bind9 restart
@@ -124,7 +124,7 @@ cp /etc/bind/db.local /etc/bind/jarkom/3.43.10.in-addr.arpa
 ```
 nano /etc/bind/jarkom/3.43.10.in-addr.arpa
 ```
-<img width="470" alt="soal1" src="images/2.png">
+<img width="470" alt="soal1" src="images/0b.png">
 
 ```
 service bind9 restart
@@ -162,7 +162,7 @@ cp /etc/bind/db.local /etc/bind/jarkom/rigel.canyon.e13.com
 nano /etc/bind/jarkom/rigel.canyon.e13.com
 ```
 
-<img width="470" alt="soal1" src="images/2.png">
+<img width="470" alt="soal1" src="images/0c.png">
 
 ```
 service bind9 restart
@@ -485,19 +485,19 @@ service isc-dhcp-server status
 
  **Revolte**
  
-<img width="470" alt="soal1" src="images/2.png">
+<img width="470" alt="soal1" src="images/2&3a.png">
 
  **Ritcher**
  
-<img width="470" alt="soal1" src="images/2.png">
+<img width="470" alt="soal1" src="images/2&3b.png">
 
  **Sein**
  
-<img width="470" alt="soal1" src="images/2.png">
+<img width="470" alt="soal1" src="images/2&3c.png">
 
  **Stark**
  
-<img width="470" alt="soal1" src="images/2.png">
+<img width="470" alt="soal1" src="images/2&3d.png">
 
 
 <h3>Soal 4</h3>
@@ -521,7 +521,7 @@ Client (Revolte):
 echo nameserver 192.168.122.1  > /etc/resolv.conf
 ```
 
-<img width="470" alt="soal1" src="images/2.png">
+<img width="470" alt="soal1" src="images/4a.png">
 
 <h3>Soal 5</h3>
 Lama waktu DHCP server meminjamkan alamat IP kepada Client yang melalui Switch3 selama 3 menit sedangkan pada client yang melalui Switch4 selama 12 menit. Dengan waktu maksimal dialokasikan untuk peminjaman alamat IP selama 96 menit 
@@ -673,7 +673,7 @@ apt-get install lynx -y
 lynx http://10.43.3.4
 ```
 
-<img width="470" alt="soal1" src="images/2a.png">
+<img width="470" alt="soal1" src="images/6a.png">
 
 <h3>Soal 7</h3>
 Kepala suku dari Bredt Region memberikan resource server sebagai berikut:
@@ -822,7 +822,7 @@ apt-get install apache2-utils -y
 ab -n 1000 -c 100 http://10.43.3.4/
 ```
 
-<img width="470" alt="soal1" src="images/2a.png">
+<img width="470" alt="soal1" src="images/7a.png">
 
 <h3>Soal 8</h3>
 Karena diminta untuk menuliskan grimoire, buatlah analisis hasil testing dengan 200 request dan 10 request/second masing-masing algoritma Load Balancer dengan ketentuan sebagai berikut:
@@ -936,11 +936,11 @@ service nginx restart
 lynx http://www.granz.channel.e13.com/
 ```
 
-<img width="470" alt="soal1" src="images/2a.png">
+<img width="470" alt="soal1" src="images/10a.png">
 
-<img width="470" alt="soal1" src="images/2a.png">
+<img width="470" alt="soal1" src="images/10b.png">
 
-<img width="470" alt="soal1" src="images/2a.png">
+<img width="470" alt="soal1" src="images/10c.png">
 
 <h3>Soal 11</h3>
 Lalu buat untuk setiap request yang mengandung /its akan di proxy passing menuju halaman https://www.its.ac.id. hint: (proxy_pass)
@@ -977,7 +977,7 @@ service nginx restart
 lynx http://www.granz.channel.e13.com/its
 ```
 
-<img width="470" alt="soal1" src="images/2a.png">
+<img width="470" alt="soal1" src="images/11a.png">
 
 <h3>Soal 12</h3>
 Selanjutnya LB ini hanya boleh diakses oleh client dengan IP [Prefix IP].3.69, [Prefix IP].3.70, [Prefix IP].4.167, dan [Prefix IP].4.168. hint: (fixed in dulu clinetnya)
@@ -1015,7 +1015,7 @@ service nginx restart
 lynx http://granz.channel.e13.com
 ```
 
-<img width="470" alt="soal1" src="images/2a.png">
+<img width="470" alt="soal1" src="images/12a.png">
 
 Karena para petualang kehabisan uang, mereka kembali bekerja untuk mengatur riegel.canyon.yyy.com.
 
@@ -1075,7 +1075,7 @@ FLUSH PRIVILEGES;
 mariadb --host=10.43.2.2 --port=3306 --user=e13 --password=e13aja dbe13 -e "SHOW DATABASES;"
 ```
 
-<img width="470" alt="soal1" src="images/2a.png">
+<img width="470" alt="soal1" src="images/13a.png">
 
 <h3>Soal 14</h3>
 Frieren, Flamme, dan Fern memiliki Riegel Channel sesuai dengan quest guide berikut. Jangan lupa melakukan instalasi PHP8.0 dan Composer
@@ -1196,13 +1196,13 @@ lynx localhost:9001
 ```
 
 nb
-===
-10.43.4.4:9001; # Frieren
-10.43.4.5:9002; # Flamme
-10.43.4.6:9003; # Fern 
-===
 
-<img width="470" alt="soal1" src="images/2a.png">
+10.43.4.4:9001; Frieren
+10.43.4.5:9002; Flamme
+10.43.4.6:9003; Fern 
+
+
+<img width="470" alt="soal1" src="images/14a.png">
 
 <h3>Soal 15,16,17</h3>
 
@@ -1255,19 +1255,19 @@ token=$(cat login_output.txt | jq -r '.token')
 ab -n 100 -c 10 -p register.json -T application/json http://10.43.4.4:9001/api/auth/register
 ```
 
-<img width="470" alt="soal1" src="images/2a.png">
+<img width="470" alt="soal1" src="images/15a.png">
 
 ```
 ab -n 100 -c 10 -H "Authorization: Bearer $token" http://10.43.4.4:9001/api/me
 ```
 
-<img width="470" alt="soal1" src="images/2a.png">
+<img width="470" alt="soal1" src="images/16a.png">
 
 ```
 ab -n 100 -c 10 -H "Authorization: Bearer $token" http://10.43.4.4:9001/api/me
 ```
 
-<img width="470" alt="soal1" src="images/2a.png">
+<img width="470" alt="soal1" src="images/17a.png">
 
 
 <h3>Soal 18</h3>
@@ -1318,7 +1318,7 @@ service nginx restart
 ab -n 100 -c 10 -p login.json -T application/json http://www.rigel.canyon.e13.com/api/auth/login
 ```
 
-<img width="470" alt="soal1" src="images/2a.png">
+<img width="470" alt="soal1" src="images/18a.png">
 
 <h3>Soal 19</h3>
 Untuk meningkatkan performa dari Worker, coba implementasikan PHP-FPM pada Frieren, Flamme, dan Fern. Untuk testing kinerja naikkan 
@@ -1370,15 +1370,15 @@ ab -n 100 -c 10 http://rigel.canyon.e13.com/
 
 Skenario 1:
 
-<img width="470" alt="soal1" src="images/2a.png">
+<img width="470" alt="soal1" src="images/19a.png">
 
 Skenario 2:
 
-<img width="470" alt="soal1" src="images/2a.png">
+<img width="470" alt="soal1" src="images/19b.png">
 
 Skenario 3:
 
-<img width="470" alt="soal1" src="images/2a.png">
+<img width="470" alt="soal1" src="images/19c.png">
 
 <h3>Soal 20</h3>
 Nampaknya hanya menggunakan PHP-FPM tidak cukup untuk meningkatkan performa dari worker maka implementasikan Least-Conn pada Eisen. Untuk testing kinerja dari worker tersebut dilakukan sebanyak 100 request dengan 10 request/second
@@ -1409,5 +1409,5 @@ service nginx restart
 ab -n 100 -c 10 http://rigel.canyon.e13.com/
 ```
 
-<img width="470" alt="soal1" src="images/2a.png">
+<img width="470" alt="soal1" src="images/20a.png">
 
