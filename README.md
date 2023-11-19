@@ -35,7 +35,7 @@ Prefix IP Kelompok E13: 10.43
 Soal:
 Perjalanan selanjutnya akan menggunakan peta berikut:
 
-<img width="470" alt="soal1" src="images/0.png">
+<img width="470" alt="soal1" src="images/01.png">
 
 dengan ketentuan sebagai berikut:
 
@@ -60,6 +60,8 @@ dengan ketentuan sebagai berikut:
 
 <h3>Soal 0</h3>
 Setelah mengalahkan Demon King, perjalanan berlanjut. Kali ini, kalian diminta untuk melakukan register domain berupa riegel.canyon.yyy.com untuk worker Laravel dan granz.channel.yyy.com untuk worker PHP (0) mengarah pada worker yang memiliki IP [prefix IP].x.1.
+
+<img width="470" alt="soal1" src="images/0.png">
 
 **Heiter**
 
@@ -205,6 +207,15 @@ zone "4.43.10.in-addr.arpa" {
 ```  
 cp /etc/bind/db.local /etc/bind/jarkom/4.43.10.in-addr.arpa
 ```
+
+- buka file `etc/bind/jarkom/4.43.10.in-addr.arpa`
+```
+nano etc/bind/jarkom/4.43.10.in-addr.arpa
+```
+
+- Tambahkan seperti gambar di bawah ini:
+  
+<img width="470" alt="soal1" src="images/0d.png">
 
 ```
 service bind9 restart
