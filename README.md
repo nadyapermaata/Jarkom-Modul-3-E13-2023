@@ -1074,18 +1074,19 @@ skip-bind-address
 nano /etc/mysql/mariadb.conf.d/50-server.cnf
 ```
 
-- Tambahkan:
+- Edit:
 ```
 bind-address = 0.0.0.0
+```
+
+Setelah itu lalukan:
+```
 service mysql restart
 mysql -u root -p
 ```
-
-- Memasukkan ini satu-satu
+- Dilanjutkan dengan memasukkan password dan menjalankan perintah:
   
 ```
-Enter password: 
-
 CREATE USER 'e13'@'%' IDENTIFIED BY 'e13aja';
 CREATE USER 'e13'@'localhost' IDENTIFIED BY 'e13aja';
 CREATE DATABASE dbe13;
