@@ -975,15 +975,19 @@ ab -n 100 -c 10 http://granz.channel.e13.com/
 Screenshot htop:
 
 - Eisen
+  
   <img width="470" alt="soal1" src="images/9a1.png">
 
 - Lawine
+  
   <img width="470" alt="soal1" src="images/9a2.png">
 
 - Linie
+  
   <img width="470" alt="soal1" src="images/9a3.png">
 
 - Lugner
+  
   <img width="470" alt="soal1" src="images/9a4.png">
 
 **2 Worker**
@@ -992,15 +996,19 @@ Screenshot htop:
 Screenshot htop:
 
 - Eisen
+  
   <img width="470" alt="soal1" src="images/9b1.png">
 
 - Lawine
+  
   <img width="470" alt="soal1" src="images/9b2.png">
 
 - Linie
+  
   <img width="470" alt="soal1" src="images/9b3.png">
 
 - Lugner
+  
   <img width="470" alt="soal1" src="images/9b4.png">
   
 **1 Worker**
@@ -1009,15 +1017,19 @@ Screenshot htop:
 Screenshot htop:
 
 - Eisen
+  
   <img width="470" alt="soal1" src="images/9c1.png">
 
 - Lawine
+  
   <img width="470" alt="soal1" src="images/9c2.png">
 
 - Linie
+  
   <img width="470" alt="soal1" src="images/9c3.png">
 
 - Lugner
+  
   <img width="470" alt="soal1" src="images/9c4.png">
 
 
