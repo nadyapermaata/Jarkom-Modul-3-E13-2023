@@ -164,7 +164,7 @@ cp /etc/bind/db.local /etc/bind/jarkom/rigel.canyon.e13.com
 nano /etc/bind/jarkom/rigel.canyon.e13.com
 ```
 
-<img width="470" alt="soal1" src="images/0c.png">
+<img width="470" alt="soal1" src="images/Screenshot 2023-11-14 184708.png">
 
 ```
 service bind9 restart
