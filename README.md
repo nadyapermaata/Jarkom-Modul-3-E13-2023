@@ -832,7 +832,6 @@ apt-get install apache2-utils -y
 ab -n 1000 -c 100 http://10.43.3.4/
 ```
 
-<img width="470" alt="soal1" src="images/7a.png">
 
 <h3>Soal 8</h3>
 Karena diminta untuk menuliskan grimoire, buatlah analisis hasil testing dengan 200 request dan 10 request/second masing-masing algoritma Load Balancer dengan ketentuan sebagai berikut:
@@ -993,6 +992,7 @@ Screenshot htop:
   <img width="470" alt="soal1" src="images/9a4.png">
 
 **2 Worker**
+
 <img width="470" alt="soal1" src="images/9b.png">
 
 Screenshot htop:
@@ -1014,6 +1014,7 @@ Screenshot htop:
   <img width="470" alt="soal1" src="images/9b4.png">
   
 **1 Worker**
+
 <img width="470" alt="soal1" src="images/9c.png">
 
 Screenshot htop:
