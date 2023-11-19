@@ -660,7 +660,7 @@ service apache2 restart
 
 **Revolte/Ritcher**
 
-- Setting aplikasi di client
+- Update package list di client
   
 ```
 echo 'nameserver 192.168.122.1' > /etc/resolv.conf
@@ -784,10 +784,12 @@ access_log /var/log/nginx/lb_access.log;
 }
 ```
 
+- unlink _file_ default
 ```
 unlink /etc/nginx/sites-enabled/default
 ```
 
+- Kemudian buat symlink
 ```
 ln -s /etc/nginx/sites-available/lb-jarkom /etc/nginx/sites-enabled
 ```
@@ -826,8 +828,11 @@ ab -n 1000 -c 100 http://10.43.3.4/
 Karena diminta untuk menuliskan grimoire, buatlah analisis hasil testing dengan 200 request dan 10 request/second masing-masing algoritma Load Balancer dengan ketentuan sebagai berikut:
 
 - Nama Algoritma Load Balancer
+  
 - Report hasil testing pada Apache Benchmark
-- Grafik request per second untuk masing masing algoritma. 
+  
+- Grafik request per second untuk masing masing algoritma.
+
 - Analisis
 
 <h4>Solusi</h4> <a name="solusi8"></a>
@@ -876,11 +881,14 @@ Dengan menggunakan algoritma Round Robin, lakukan testing dengan menggunakan 3 w
 
 <h4>Solusi</h4> <a name="solusi9"></a>
 
-LB 3 worker, 2 worker, 1 worker
-LB: nomer9.sh
-Revolte: ab -n 100 -c 10 http://granz.channel.e13.com/
+**LB 3 worker, 2 worker, 1 worker**
 
 <h4>Testing</h4> <a name="testing9"></a>
+
+ **Revolte**
+```
+ab -n 100 -c 10 http://granz.channel.e13.com/
+```
 
 <h3>Soal 10</h3>
 Selanjutnya coba tambahkan konfigurasi autentikasi di LB dengan dengan kombinasi username: “netics” dan password: “ajkyyy”, dengan yyy merupakan kode kelompok. Terakhir simpan file “htpasswd” nya di /etc/nginx/rahasisakita/
@@ -888,20 +896,27 @@ Selanjutnya coba tambahkan konfigurasi autentikasi di LB dengan dengan kombinasi
 <h4>Solusi</h4> <a name="solusi10"></a>
 
 **Load Balancer**
+
+- Update package lis
 ```
 apt-get update
 apt-get install apache2-utils -y
 ```
+
+- Buat direktori **rahasisakita** pada **/etc/nginx**
 ```
 mkdir /etc/nginx/rahasisakita
 ```
+- Kelola hak akses 
 ```
 htpasswd -c /etc/nginx/rahasisakita/htpasswd netics
 password: ajke13
 ```
+- Lakukan pengeditan pada `/etc/nginx/sites-available/lb-jarkom`
 ```
 nano /etc/nginx/sites-available/lb-jarkom
 ```
+- Tambahkan:
 ```
 auth_basic "Restricted Content";
 auth_basic_user_file /etc/nginx/rahasisakita/htpasswd;
@@ -909,6 +924,7 @@ location ~ /\.ht {
             deny all;
         }
 ```
+
 ```
 service nginx restart
 ```
@@ -932,9 +948,14 @@ Lalu buat untuk setiap request yang mengandung /its akan di proxy passing menuju
 <h4>Solusi</h4> <a name="solusi11"></a>
 
   **Load Balancer/Eisen**
+
+- Lakukan pengeditan apada nano `/etc/nginx/sites-available/lb-jarkom`
+  
 ```
 nano /etc/nginx/sites-available/lb-jarkom
 ```
+
+- Tambahkan:
 ```
     location ~ /its {
         proxy_pass https://www.its.ac.id;
@@ -944,6 +965,7 @@ nano /etc/nginx/sites-available/lb-jarkom
         proxy_set_header X-Forwarded-Proto $scheme;
     }
 ```
+
 ```
 service nginx restart
 ```
@@ -963,9 +985,15 @@ Selanjutnya LB ini hanya boleh diakses oleh client dengan IP [Prefix IP].3.69, [
 <h4>Solusi</h4> <a name="solusi12"></a>
 
  **Load Balancer**
+
+- Lakukan pengeditan pada `/etc/nginx/sites-available/lb-jarkom`
+  
 ```
 nano /etc/nginx/sites-available/lb-jarkom
 ```
+
+- Tambahkan:
+  
 ```
 location / {
 
@@ -976,6 +1004,7 @@ location / {
     deny all;
 }
 ```
+
 ```
 service nginx restart
 ```
@@ -997,9 +1026,14 @@ Semua data yang diperlukan, diatur pada Denken dan harus dapat diakses oleh Frie
 
   **Denken (Database Server)**
 
+- Lakukan pengeditan pada `/etc/mysql/my.cnf`
+  
 ```
 nano /etc/mysql/my.cnf
 ```
+
+- Tambahkan:
+  
 ```
 Options affecting the MySQL server (mysqld)
 [mysqld]
@@ -1007,16 +1041,21 @@ skip-networking=0
 skip-bind-address
 ```
 
+- Lakukan pengeditan pada `/etc/mysql/mariadb.conf.d/50-server.cnf`
+  
 ```
 nano /etc/mysql/mariadb.conf.d/50-server.cnf
 ```
+
+- Tambahkan:
 ```
 bind-address = 0.0.0.0
 service mysql restart
 mysql -u root -p
 ```
 
-- MASUKIN SATU2 INI
+- Memasukkan ini satu-satu
+  
 ```
 Enter password: 
 
@@ -1031,6 +1070,7 @@ FLUSH PRIVILEGES;
 <h4>Testing</h4> <a name="testing13"></a>
 
   **Fern**
+
 ```
 mariadb --host=10.43.2.2 --port=3306 --user=e13 --password=e13aja dbe13 -e "SHOW DATABASES;"
 ```
@@ -1044,31 +1084,50 @@ Riegel Channel memiliki beberapa endpoint yang harus ditesting sebanyak 100 requ
 
 <h4>Solusi</h4> <a name="solusi14"></a>
 
-**3F**
+**3F : Frieren, Flamme, Fern**
+
+- Download file
 ```
 wget https://getcomposer.org/download/2.0.13/composer.phar
 ```
+
+- Tambahkan izin eksekusi pada file `composer.phar`
 ```
 chmod +x composer.phar
 ```
+- Pindahkan file `composer.phar` ke `/usr/local/bin/composer`
 ```
 mv composer.phar /usr/local/bin/composer
 ```
+
+- Install git
 ```
 apt-get install git -y
 ```
+
+- Pindah direktori dan lakukan cloning github
 ```
 cd /var/www && git clone https://github.com/martuafernando/laravel-praktikum-jarkom
 ```
+
+- Pindah direktori ke `/var/www/laravel-praktikum-jarkom` dan update composer
 ```
 cd /var/www/laravel-praktikum-jarkom && composer update
 ```
+
+- Tetap di direktori `/var/www/laravel-praktikum-jarkom` dan copy file `.env.example` ke  `.env`
+  
 ```
 cd /var/www/laravel-praktikum-jarkom && cp .env.example .env
 ```
+
+- Lakukan pengeditan pada `/var/www/laravel-praktikum-jarkom/.env`
+  
 ```
 nano /var/www/laravel-praktikum-jarkom/.env
 ```
+
+- Tambahkan:
 ```
 cd /var/www/laravel-praktikum-jarkom && php artisan key:generate
 cd /var/www/laravel-praktikum-jarkom && php artisan config:cache
@@ -1078,13 +1137,19 @@ cd /var/www/laravel-praktikum-jarkom && php artisan storage:link
 cd /var/www/laravel-praktikum-jarkom && php artisan jwt:secret
 cd /var/www/laravel-praktikum-jarkom && php artisan config:clear
 ```
+
+- Ubah kepemilikan file
+  
 ```
 chown -R www-data.www-data /var/www/laravel-praktikum-jarkom/storage
 ```
+
+- Lakukan pengeditan pada `/etc/nginx/sites-available/jarkom`
+  
 ```
 nano /etc/nginx/sites-available/jarkom
 ```
-
+- Lalu tambahkan:
 ```
 server {
     listen 9001;
@@ -1112,14 +1177,20 @@ server {
     access_log /var/log/nginx/implementasi_access.log;
 }
 ```
+- Unlink file `/etc/nginx/sites-enabled/default`
+  
 ```
 unlink /etc/nginx/sites-enabled/default
 ```
+
+- Buat symlink
+  
 ```
 ln -s /etc/nginx/sites-available/jarkom /etc/nginx/sites-enabled
 ```
 
 <h4>Testing</h4> <a name="testing14"></a>
+
 ```
 lynx localhost:9001
 ```
@@ -1148,8 +1219,6 @@ echo '
 }' > register.json
 ```
 
-<img width="470" alt="soal1" src="images/2a.png">
-
   **POST /auth/login (16)**
 
 ```
@@ -1159,28 +1228,28 @@ echo '
   "password": "e13aja"
 }' > login.json
 ```
+
 ```
 ab -n 100 -c 10 -p login.json -T application/json http://10.43.4.4:9001/api/auth/login
 ```
-
-<img width="470" alt="soal1" src="images/2a.png">
-
 
   **GET /me (17)**
 
 ```
 curl -X POST -H "Content-Type: application/json" -d @login.json http://10.43.4.4:9001/api/auth/login > login_output.txt
 ```
+
 ```
 echo 'nameserver 192.168.122.1' > /etc/resolv.conf
 apt-get update
 apt-get install jq -y
 ```
+
 ```
 token=$(cat login_output.txt | jq -r '.token')
 ```
 
-<h4>Testing</h4> <a name="testing16,17,18"></a>
+<h4>Testing</h4> <a name="testing15,16,17"></a>
 
 ```
 ab -n 100 -c 10 -p register.json -T application/json http://10.43.4.4:9001/api/auth/register
@@ -1194,6 +1263,11 @@ ab -n 100 -c 10 -H "Authorization: Bearer $token" http://10.43.4.4:9001/api/me
 
 <img width="470" alt="soal1" src="images/2a.png">
 
+```
+ab -n 100 -c 10 -H "Authorization: Bearer $token" http://10.43.4.4:9001/api/me
+```
+
+<img width="470" alt="soal1" src="images/2a.png">
 
 
 <h3>Soal 18</h3>
@@ -1202,9 +1276,15 @@ Untuk memastikan ketiganya bekerja sama secara adil untuk mengatur Riegel Channe
 <h4>Solusi</h4> <a name="solusi18"></a>
 
   **EISEN**
+
+- Lakukan pengeditan pada `/etc/nginx/sites-available/laravel-worker`
+
 ```
 nano /etc/nginx/sites-available/laravel-worker
 ```
+
+- Tambahkan:
+  
 ```
 upstream worker {
     server 10.33.4.4:9001;
@@ -1221,12 +1301,16 @@ server {
     }
 }
 ```
+
+- Buat symlink
 ```
 ln -s /etc/nginx/sites-available/laravel-worker /etc/nginx/sites-enabled/laravel-worker
 ```
+
 ```
 service nginx restart
 ```
+
 <h4>Testing</h4> <a name="testing18"></a>
 
   **Revolte**
@@ -1252,7 +1336,8 @@ sebanyak tiga percobaan dan lakukan testing sebanyak 100 request dengan 10 reque
 
 4: 75-10-5-20
 
-  **3F**
+  **3F: Frieren, Flamme, Fern**
+
 ```
 echo '[www]
 user = www-data
@@ -1279,7 +1364,7 @@ service php8.0-fpm restart
 <h4>Testing</h4> <a name="testing19"></a>
 
  **Revolte**
- ```
+```
 ab -n 100 -c 10 http://rigel.canyon.e13.com/
 ```
 
@@ -1301,12 +1386,17 @@ Nampaknya hanya menggunakan PHP-FPM tidak cukup untuk meningkatkan performa dari
 <h4>Solusi</h4> <a name="solusi20"></a>
 
   **Eisen**
+- Lakukan pengeditan pada file `/etc/nginx/sites-available/laravel-worker`
+  
 ```
 nano /etc/nginx/sites-available/laravel-worker
 ```
+
+- Tambahkan:
 ```
  least_conn;
 ```
+
 ```
 service nginx restart
 ```
@@ -1314,6 +1404,7 @@ service nginx restart
 <h4>Testing</h4> <a name="testing20"></a>
 
 **Revolte**
+
 ```
 ab -n 100 -c 10 http://rigel.canyon.e13.com/
 ```
