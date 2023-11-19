@@ -860,6 +860,7 @@ apt-get install htop -y
 Beberapa algoritma yang digunakan ialah: <h4>Testing</h4> <a name="testing8"></a>
 
 ---roundrobin
+
 Karena pada soal sebelumnya telah menerapkan algoritma weighted round robin, kita bisa hapus weightnya untuk hanya menerapkan default round robin lalu melakukan testing.
 
 revolte: ab -n 200 -c 10 http://granz.channel.e13.com/
@@ -880,6 +881,7 @@ Screenshot htop
 <img width="470" alt="soal1" src="images/8e.png">
 
 ---least connection
+
 Pada Eisen menambahkan konfigurasi:
 ```
    least_conn;
@@ -902,6 +904,7 @@ Screenshot htop
 <img width="470" alt="soal1" src="images/8j.png">
 
 ---ip hash
+
 Pada Eisen menambahkan konfigurasi:
 ```
    ip_hash;
@@ -924,6 +927,7 @@ Screenshot htop
 <img width="470" alt="soal1" src="images/8o.png">
 
 ---generic hash
+
 Pada Eisen menambahkan konfigurasi:
 ```
    hash $request_uri consistent;
@@ -945,6 +949,12 @@ Screenshot htop
 - Lugner
 <img width="470" alt="soal1" src="images/8t.png">
 
+Didapatkan grafik kesimpulan sebagai berikut:
+
+<img width="470" alt="soal1" src="images/8u.png">
+
+Secara umum, algoritma yang memberikan request per second (RPS) lebih tinggi cenderung dianggap lebih baik. Dalam data yang saya dapatkan, Generic Hash memberikan nilai RPS tertinggi, sehingga dapat dianggap sebagai indikator kinerja yang baik. Algoritma Generic Hash pada dasarnya adalah salah satu metode yang digunakan dalam load balancing untuk mendistribusikan lalu lintas secara merata di antara server-server backend. Cara kerjanya melibatkan penggunaan hash function untuk menghasilkan nilai hash dari informasi tertentu, seperti alamat IP klien atau URL, dan kemudian menggunakan nilai hash tersebut untuk menentukan ke server backend mana permintaan akan diarahkan.
+
 <h3>Soal 9</h3>
 Dengan menggunakan algoritma Round Robin, lakukan testing dengan menggunakan 3 worker, 2 worker, dan 1 worker sebanyak 100 request dengan 10 request/second, kemudian tambahkan grafiknya pada grimoire.
 
@@ -962,11 +972,48 @@ ab -n 100 -c 10 http://granz.channel.e13.com/
 **3 Worker**
 <img width="470" alt="soal1" src="images/9a.png">
 
+Screenshot htop:
+- Eisen
+  <img width="470" alt="soal1" src="images/9a1.png">
+- Lawine
+  <img width="470" alt="soal1" src="images/9a2.png">
+- Linie
+  <img width="470" alt="soal1" src="images/9a3.png">
+- Lugner
+  <img width="470" alt="soal1" src="images/9a4.png">
+
 **2 Worker**
 <img width="470" alt="soal1" src="images/9b.png">
 
+Screenshot htop:
+- Eisen
+  <img width="470" alt="soal1" src="images/9b1.png">
+- Lawine
+  <img width="470" alt="soal1" src="images/9b2.png">
+- Linie
+  <img width="470" alt="soal1" src="images/9b3.png">
+- Lugner
+  <img width="470" alt="soal1" src="images/9b4.png">
+  
 **1 Worker**
 <img width="470" alt="soal1" src="images/9c.png">
+
+Screenshot htop:
+- Eisen
+  <img width="470" alt="soal1" src="images/9c1.png">
+- Lawine
+  <img width="470" alt="soal1" src="images/9c2.png">
+- Linie
+  <img width="470" alt="soal1" src="images/9c3.png">
+- Lugner
+  <img width="470" alt="soal1" src="images/9c4.png">
+
+
+Didapatkan grafik kesimpulan sebagai berikut:
+
+<img width="470" alt="soal1" src="images/9d.png">
+
+Dari data yang didapat, penggunaan 1 worker menghasilkan kinerja paling baik.
 
 
 <h3>Soal 10</h3>
