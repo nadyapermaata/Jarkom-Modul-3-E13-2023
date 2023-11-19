@@ -58,172 +58,12 @@ dengan ketentuan sebagai berikut:
 | Stark | Client |  danielcristh0/debian-buster:1.1 | Dynamic |
 
 
-<h3>Soal 0</h3>
-Setelah mengalahkan Demon King, perjalanan berlanjut. Kali ini, kalian diminta untuk melakukan register domain berupa riegel.canyon.yyy.com untuk worker Laravel dan granz.channel.yyy.com untuk worker PHP (0) mengarah pada worker yang memiliki IP [prefix IP].x.1.
+<h3>Soal 0 dan 1</h3>
+Setelah mengalahkan Demon King, perjalanan berlanjut. Kali ini, kalian diminta untuk melakukan register domain berupa riegel.canyon.yyy.com untuk worker Laravel dan granz.channel.yyy.com untuk worker PHP (0) mengarah pada worker yang memiliki IP [prefix IP].x.1. Lakukan konfigurasi sesuai dengan peta yang sudah diberikan! <a name="solusi1"></a>
 
 <img width="470" alt="soal1" src="images/0.png">
 
-**Heiter**
-
-**Membuat Domain granz.channel.e13.com:**
-
-IP Heiter: 10.43.1.3 IP Tujuan: 10.43.3.1
-
-- Edit _file_ konfigurasi `named.conf.local` pada `/etc/bind/named.conf.local`
-```
-nano /etc/bind/named.conf.local
-```
-
-```
-zone "granz.channel.e13.com" {
-	type master;
-	file "/etc/bind/jarkom/granz.channel.e13.com";
-};
-```
-
-- Buat folder **jarkom** di dalam **/etc/bind**
-```
-mkdir /etc/bind/jarkom
-```
-
-- Copy file **db.local** pada path **/etc/bind** ke dalam folder **jarkom** yang baru saja dibuat dan ubah namanya menjadi granz.channel.e13.com
-```
-cp /etc/bind/db.local /etc/bind/jarkom/granz.channel.e13.com
-```
-- Buka file granz.channel.e13.com dan edit seperti gambar berikut:
-``` 
-nano /etc/bind/jarkom/granz.channel.e13.com
-```
-
-<img width="470" alt="soal1" src="images/0a.png">
-
-```
-service bind9 restart
-```
-
-**REVERSE**
-
-- Edit file **/etc/bind/named.conf.local**
-```  
-nano /etc/bind/named.conf.local
-```
-
-- Tambahkan konfigurasi berikut ke dalam file **named.conf.local.**
-  
-```
-zone "3.43.10.in-addr.arpa" {
-    type master;
-    file "/etc/bind/jarkom/3.43.10.in-addr.arpa";
-};
-```
-
-- Copykan file db.local pada path **/etc/bind** ke dalam folder jarkom yang baru saja dibuat dan ubah namanya menjadi 3.43.10.in-addr.arpa
-```  
-cp /etc/bind/db.local /etc/bind/jarkom/3.43.10.in-addr.arpa
-```
-
-- Edit file 3.43.10.in-addr.arpa menjadi seperti gambar di bawah ini
-```
-nano /etc/bind/jarkom/3.43.10.in-addr.arpa
-```
-<img width="470" alt="soal1" src="images/0b.png">
-
-```
-service bind9 restart
-```
-
-**Membuat Domain rigel.canyon.e13.com:**
-
-IP Heiter: 10.43.1.3; IP Tujuan: 10.43.4.1
-
-- Edit _file_ konfigurasi `named.conf.local` pada `/etc/bind/named.conf.local`
-```
-nano /etc/bind/named.conf.local
-```
-
-```
-zone "rigel.canyon.e13.com" {
-	type master;
-	file "/etc/bind/jarkom/rigel.canyon.e13.com";
-};
-```
-
-- Buat folder **jarkom** di dalam **/etc/bind**
-```
-mkdir /etc/bind/jarkom
-```
-
-- Copy file **db.local** pada path **/etc/bind** ke dalam folder **jarkom** yang baru saja dibuat dan ubah namanya menjadi rigel.canyon.e13.com
-```
-cp /etc/bind/db.local /etc/bind/jarkom/rigel.canyon.e13.com
-```
-
-- Buka file rigel.canyon.e13.com dan edit seperti gambar berikut:
-  
-``` 
-nano /etc/bind/jarkom/rigel.canyon.e13.com
-```
-
-<img width="470" alt="soal1" src="images/Screenshot 2023-11-14 184708.png">
-
-```
-service bind9 restart
-```
-
-**REVERSE**
-
-- Edit file **/etc/bind/named.conf.local**
-```  
-nano /etc/bind/named.conf.local
-```
-
-- Tambahkan konfigurasi berikut ke dalam file **named.conf.local**
-  
-```
-6 10.43.3.32;
-        range 10.43.3.64 10.43.3.80;
-        option routers 10.43.3.1;
-        option broadcast-address 10.43.3.255;
-        option domain-name-servers 10.43.1.3; # DNS Server
-        default-lease-time 600;
-        max-lease-time 7200;
-}
-
-subnet 10.43.4.0 netmask 255.255.255.0 {
-        range 10.43.4.12 10.43.4.20;
-        range 10.43.4.160 10.43.4.168;
-        option routers 10.43.4.1;
-        option broadcast-address 10.43.4.255;
-        option domain-name-servers 10.43.1.3;
-        default-lease-time 600;nano /etc/bind/named.conf.local
-
-zone "4.43.10.in-addr.arpa" {
-    type master;
-    file "/etc/bind/jarkom/4.43.10.in-addr.arpa";
-};
-```
-
-- Copykan file db.local pada path **/etc/bind** ke dalam folder jarkom yang baru saja dibuat dan ubah namanya menjadi 4.43.10.in-addr.arpa
-```  
-cp /etc/bind/db.local /etc/bind/jarkom/4.43.10.in-addr.arpa
-```
-
-- buka file `etc/bind/jarkom/4.43.10.in-addr.arpa`
-```
-nano etc/bind/jarkom/4.43.10.in-addr.arpa
-```
-
-- Tambahkan seperti gambar di bawah ini:
-  
-<img width="470" alt="soal1" src="images/0d.png">
-
-```
-service bind9 restart
-```
-
-<h3>Soal 1</h3>
-Lakukan konfigurasi sesuai dengan peta yang sudah diberikan!
-<h4>Solusi</h4> <a name="solusi1"></a>
+<h4>Solusi</h4>
 
 Konfigurasi Network: 
 
@@ -423,13 +263,170 @@ service mysql start
 
 **Client**
 ```
-echo ‘nameserver 192.168.122.1
-search example.org
-nameserver 10.43.1.3’ >> /etc/resolv.conf
+echo ‘nameserver 192.168.122.1’ >> /etc/resolv.conf
 apt-get update
 apt-get install dnsutils -y
 apt-get install lynx -y
 ```
+
+**Heiter**
+
+**Membuat Domain granz.channel.e13.com:**
+
+IP Heiter: 10.43.1.3 IP Tujuan: 10.43.3.1
+
+- Edit _file_ konfigurasi `named.conf.local` pada `/etc/bind/named.conf.local`
+```
+nano /etc/bind/named.conf.local
+```
+
+```
+zone "granz.channel.e13.com" {
+	type master;
+	file "/etc/bind/jarkom/granz.channel.e13.com";
+};
+```
+
+- Buat folder **jarkom** di dalam **/etc/bind**
+```
+mkdir /etc/bind/jarkom
+```
+
+- Copy file **db.local** pada path **/etc/bind** ke dalam folder **jarkom** yang baru saja dibuat dan ubah namanya menjadi granz.channel.e13.com
+```
+cp /etc/bind/db.local /etc/bind/jarkom/granz.channel.e13.com
+```
+- Buka file granz.channel.e13.com dan edit seperti gambar berikut:
+``` 
+nano /etc/bind/jarkom/granz.channel.e13.com
+```
+
+<img width="470" alt="soal1" src="images/0a.png">
+
+```
+service bind9 restart
+```
+
+**REVERSE**
+
+- Edit file **/etc/bind/named.conf.local**
+```  
+nano /etc/bind/named.conf.local
+```
+
+- Tambahkan konfigurasi berikut ke dalam file **named.conf.local.**
+  
+```
+zone "3.43.10.in-addr.arpa" {
+    type master;
+    file "/etc/bind/jarkom/3.43.10.in-addr.arpa";
+};
+```
+
+- Copykan file db.local pada path **/etc/bind** ke dalam folder jarkom yang baru saja dibuat dan ubah namanya menjadi 3.43.10.in-addr.arpa
+```  
+cp /etc/bind/db.local /etc/bind/jarkom/3.43.10.in-addr.arpa
+```
+
+- Edit file 3.43.10.in-addr.arpa menjadi seperti gambar di bawah ini
+```
+nano /etc/bind/jarkom/3.43.10.in-addr.arpa
+```
+<img width="470" alt="soal1" src="images/0b.png">
+
+```
+service bind9 restart
+```
+
+**Membuat Domain rigel.canyon.e13.com:**
+
+IP Heiter: 10.43.1.3; IP Tujuan: 10.43.4.1
+
+- Edit _file_ konfigurasi `named.conf.local` pada `/etc/bind/named.conf.local`
+```
+nano /etc/bind/named.conf.local
+```
+
+```
+zone "rigel.canyon.e13.com" {
+	type master;
+	file "/etc/bind/jarkom/rigel.canyon.e13.com";
+};
+```
+
+- Buat folder **jarkom** di dalam **/etc/bind**
+```
+mkdir /etc/bind/jarkom
+```
+
+- Copy file **db.local** pada path **/etc/bind** ke dalam folder **jarkom** yang baru saja dibuat dan ubah namanya menjadi rigel.canyon.e13.com
+```
+cp /etc/bind/db.local /etc/bind/jarkom/rigel.canyon.e13.com
+```
+
+- Buka file rigel.canyon.e13.com dan edit seperti gambar berikut:
+  
+``` 
+nano /etc/bind/jarkom/rigel.canyon.e13.com
+```
+
+<img width="470" alt="soal1" src="images/Screenshot 2023-11-14 184708.png">
+
+```
+service bind9 restart
+```
+
+**REVERSE**
+
+- Edit file **/etc/bind/named.conf.local**
+```  
+nano /etc/bind/named.conf.local
+```
+
+- Tambahkan konfigurasi berikut ke dalam file **named.conf.local**
+  
+```
+6 10.43.3.32;
+        range 10.43.3.64 10.43.3.80;
+        option routers 10.43.3.1;
+        option broadcast-address 10.43.3.255;
+        option domain-name-servers 10.43.1.3; # DNS Server
+        default-lease-time 600;
+        max-lease-time 7200;
+}
+
+subnet 10.43.4.0 netmask 255.255.255.0 {
+        range 10.43.4.12 10.43.4.20;
+        range 10.43.4.160 10.43.4.168;
+        option routers 10.43.4.1;
+        option broadcast-address 10.43.4.255;
+        option domain-name-servers 10.43.1.3;
+        default-lease-time 600;nano /etc/bind/named.conf.local
+
+zone "4.43.10.in-addr.arpa" {
+    type master;
+    file "/etc/bind/jarkom/4.43.10.in-addr.arpa";
+};
+```
+
+- Copykan file db.local pada path **/etc/bind** ke dalam folder jarkom yang baru saja dibuat dan ubah namanya menjadi 4.43.10.in-addr.arpa
+```  
+cp /etc/bind/db.local /etc/bind/jarkom/4.43.10.in-addr.arpa
+```
+
+- buka file `etc/bind/jarkom/4.43.10.in-addr.arpa`
+```
+nano etc/bind/jarkom/4.43.10.in-addr.arpa
+```
+
+- Tambahkan seperti gambar di bawah ini:
+  
+<img width="470" alt="soal1" src="images/0d.png">
+
+```
+service bind9 restart
+```
+
 
 
 Kemudian, karena masih banyak spell yang harus dikumpulkan, bantulah para petualang untuk memenuhi kriteria berikut.:
