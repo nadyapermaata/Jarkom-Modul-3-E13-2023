@@ -1381,15 +1381,18 @@ ab -n 100 -c 10 http://rigel.canyon.e13.com/
 
 Skenario 1:
 
-<img width="470" alt="soal1" src="images/19a.png">
+<img width="470" alt="soal1" src="images
+/Screenshot 2023-11-16 184304.png">
 
 Skenario 2:
 
-<img width="470" alt="soal1" src="images/19b.png">
+<img width="470" alt="soal1" src="images
+/Screenshot 2023-11-16 184304.png">
 
 Skenario 3:
 
-<img width="470" alt="soal1" src="images/19c.png">
+<img width="470" alt="soal1" src="images
+/Screenshot 2023-11-16 184304.png">
 
 <h3>Soal 20</h3>
 Nampaknya hanya menggunakan PHP-FPM tidak cukup untuk meningkatkan performa dari worker maka implementasikan Least-Conn pada Eisen. Untuk testing kinerja dari worker tersebut dilakukan sebanyak 100 request dengan 10 request/second
@@ -1420,5 +1423,6 @@ service nginx restart
 ab -n 100 -c 10 http://rigel.canyon.e13.com/
 ```
 
-<img width="470" alt="soal1" src="images/20a.png">
+<img width="470" alt="soal1" src="images
+/Screenshot 2023-11-16 184304.png">
 
