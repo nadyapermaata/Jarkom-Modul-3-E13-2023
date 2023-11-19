@@ -272,6 +272,14 @@ apt-get install dnsutils -y
 apt-get install lynx -y
 ```
 
+**Konfigurasi DHCP Relay (Aura)**
+- edit file  /etc/default/isc-dhcp-relay [ngisi pas buka]
+```
+SERVER = "10.43.1.2" #IP Himmel (DHCP Server)
+INTERFACES = "eth1 eth2 eth3 eth4"
+OPTIONS = ""
+```
+
 **Heiter**
 
 **Membuat Domain granz.channel.e13.com:**
