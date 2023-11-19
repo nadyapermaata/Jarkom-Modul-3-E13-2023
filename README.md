@@ -431,7 +431,6 @@ apt-get install dnsutils -y
 apt-get install lynx -y
 ```
 
-<h4>Testing</h4> <a name="testing1"></a>
 
 Kemudian, karena masih banyak spell yang harus dikumpulkan, bantulah para petualang untuk memenuhi kriteria berikut.:
 
@@ -573,7 +572,6 @@ service isc-dhcp-server restart
 service isc-dhcp-server status
 ```
 
-<h4>Testing</h4> <a name="testing5"></a>
 
 
 
