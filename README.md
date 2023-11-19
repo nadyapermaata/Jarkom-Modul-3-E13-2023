@@ -1112,7 +1112,7 @@ Riegel Channel memiliki beberapa endpoint yang harus ditesting sebanyak 100 requ
 
 <h4>Solusi</h4> <a name="solusi14"></a>
 
-**3F : Frieren, Flamme, Fern**
+**Frieren, Flamme, Fern**
 
 - Download file
 ```
@@ -1222,12 +1222,6 @@ ln -s /etc/nginx/sites-available/jarkom /etc/nginx/sites-enabled
 ```
 lynx localhost:9001
 ```
-
-nb
-
-10.43.4.4:9001; Frieren
-10.43.4.5:9002; Flamme
-10.43.4.6:9003; Fern 
 
 
 <img width="470" alt="soal1" src="images/14a.png">
@@ -1358,13 +1352,7 @@ sebanyak tiga percobaan dan lakukan testing sebanyak 100 request dengan 10 reque
 
 <h4>Solusi</h4> <a name="solusi19"></a>
 
-1: 5-2-1-3
-
-2: 25-5-3-10 
-
-4: 75-10-5-20
-
-  **3F: Frieren, Flamme, Fern**
+  **Frieren, Flamme, Fern**
 
 ```
 echo '[www]
