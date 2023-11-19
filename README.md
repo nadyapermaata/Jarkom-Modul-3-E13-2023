@@ -1228,9 +1228,14 @@ lynx localhost:9001
 
 <h3>Soal 15,16,17</h3>
 
-<h4>Solusi</h4> <a name="solusi15,16,17"></a>
+Riegel Channel memiliki beberapa endpoint yang harus ditesting sebanyak 100 request dengan 10 request/second. Tambahkan response dan hasil testing pada grimoire.
+a. POST /auth/register (15)
+b. POST /auth/login (16)
+c. GET /me (17)
 
-  **POST /auth/register (15)**
+<h4>Solusi</h4> 
+
+  **a. POST /auth/register (15)** <a name="solusi15"></a>
 
 REVOLTE 
 ```
@@ -1240,8 +1245,16 @@ echo '
   "password": "e13aja"
 }' > register.json
 ```
+<h4>Testing</h4> <a name="testing15"></a>
 
-  **POST /auth/login (16)**
+Lakukan testing:
+```
+ab -n 100 -c 10 -p register.json -T application/json http://10.43.4.4:9001/api/auth/register
+```
+
+<img width="470" alt="soal1" src="images/15a.png">
+
+  **b. POST /auth/login (16)** <a name="solusi16"></a>
 
 ```
 echo '
@@ -1251,11 +1264,16 @@ echo '
 }' > login.json
 ```
 
+<h4>Testing</h4> <a name="testing16"></a>
+
 ```
 ab -n 100 -c 10 -p login.json -T application/json http://10.43.4.4:9001/api/auth/login
 ```
 
-  **GET /me (17)**
+<img width="470" alt="soal1" src="images/16a.png">
+
+
+  **GET /me (17)** <a name="solusi17"></a>
 
 ```
 curl -X POST -H "Content-Type: application/json" -d @login.json http://10.43.4.4:9001/api/auth/login > login_output.txt
@@ -1271,19 +1289,7 @@ apt-get install jq -y
 token=$(cat login_output.txt | jq -r '.token')
 ```
 
-<h4>Testing</h4> <a name="testing15,16,17"></a>
-
-```
-ab -n 100 -c 10 -p register.json -T application/json http://10.43.4.4:9001/api/auth/register
-```
-
-<img width="470" alt="soal1" src="images/15a.png">
-
-```
-ab -n 100 -c 10 -H "Authorization: Bearer $token" http://10.43.4.4:9001/api/me
-```
-
-<img width="470" alt="soal1" src="images/16a.png">
+<h4>Testing</h4> <a name="testing17"></a>
 
 ```
 ab -n 100 -c 10 -H "Authorization: Bearer $token" http://10.43.4.4:9001/api/me
