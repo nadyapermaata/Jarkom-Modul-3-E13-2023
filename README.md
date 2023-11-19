@@ -141,31 +141,34 @@ auto eth0
 iface eth0 inet dhcp
 ```
 
-**Lawine (PHP Worker) GANTI FIXED ADDRESS**
+**Lawine (PHP Worker)**
 ```
 auto eth0
 iface eth0 inet static
 	address 10.43.3.4
 	netmask 255.255.255.0
 	gateway 10.43.3.1
+hwaddress ether c2:87:79:57:b1:05
 ```
 
-**Linie (PHP Worker) GANTI FIXED ADDRESS**
+**Linie (PHP Worker)**
 ```
 auto eth0
 iface eth0 inet static
 	address 10.43.3.5
 	netmask 255.255.255.0
 	gateway 10.43.3.1
+hwaddress ether 3e:0e:25:e2:63:45
 ```
 
-**Lugner (PHP Worker) GANTI FIXED ADDRESS**
+**Lugner (PHP Worker)**
 ```
 auto eth0
 iface eth0 inet static
 	address 10.43.3.6
 	netmask 255.255.255.0
 	gateway 10.43.3.1
+hwaddress ether b6:2f:0e:2d:38:5a
 ```
 
 **Sein (Client)**
@@ -180,7 +183,7 @@ auto eth0
 iface eth0 inet dhcp
 ```
 
-**Frieren (Laravel Worker) GANTI FIXED ADDRESS**
+**Frieren (Laravel Worker)**
 ```
 auto eth0
 iface eth0 inet static
@@ -189,7 +192,7 @@ iface eth0 inet static
 	gateway 10.43.4.1
 ```
 
-**Flamme (Laravel Worker) GANTI FIXED ADDRESS**
+**Flamme (Laravel Worker)**
 ```
 auto eth0
 iface eth0 inet static
@@ -198,7 +201,7 @@ iface eth0 inet static
 	gateway 10.43.4.1
 ```
 
-**Fern (Laravel Worker) GANTI FIXED ADDRESS**
+**Fern (Laravel Worker)**
 ```
 auto eth0
 iface eth0 inet static
